@@ -3,8 +3,8 @@
 vamos a trabajar y contiene operaciones básicas que vamos a realizar.
 
 Problemas a solucionar, o más bien datos a analizar de BiciMad:
-* mapa de calor 
-* cliente objetivo:
+* Mapa de calor 
+* Cliente objetivo:
 	Obtendremos información acerca del cliente objetivo, en función de este dato
 	podremos buscar estrategias para llegar a otros públicos.
 * Mejora medioambiental existente gracias al producto.
@@ -12,4 +12,4 @@ Problemas a solucionar, o más bien datos a analizar de BiciMad:
 	2)Calculamos las distancias
 	3)Creamos función del %gasolina, %diesel, ...
 	calculamos los km que hace BiciMad y añadimos CO2 ahorrado
-* media km por grupo de edad
+* Meida km por grupo de edad.
