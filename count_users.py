@@ -18,7 +18,6 @@ def main(sc, infile, outfile):
 
 if __name__ == '__main__':
     if len(sys.argv) == 3:
-        config = ""
         conf = SparkConf().setAppName("contadorUsuarios")
         with SparkContext(conf=conf) as sc:
             sc.setLogLevel("ERROR")
