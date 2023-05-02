@@ -20,11 +20,10 @@ if __name__ == '__main__':
     if len(sys.argv) == 3:
         config = ""
         conf = SparkConf().setAppName("contadorUsuarios")
-        sc = SparkContext(conf=conf)
-        sc.setLogLevel("ERROR")
-        infile = sys.argv[1]
-        outfile = sys.argv[2]
-        main(sc, infile, outfile)
-    
+        with SparkContext(conf=conf) as sc:
+            sc.setLogLevel("ERROR")
+            infile = sys.argv[1]
+            outfile = sys.argv[2]
+            main(sc, infile, outfile)
     else:
-        print(len(sys.argv))
+        print("Uso: python3 {0} <input_file> <output_file>".format(sys.argv[0]))
