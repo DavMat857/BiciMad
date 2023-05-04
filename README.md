@@ -12,4 +12,5 @@ Problemas a solucionar, o más bien datos a analizar de BiciMad:
 	2)Calculamos las distancias
 	3)Creamos función del %gasolina, %diesel, ...
 	calculamos los km que hace BiciMad y añadimos CO2 ahorrado
-* Meida km por grupo de edad.
+* Media km por grupo de edad.
+* Calcular la velocidad media del conjunto de todos los trayectos
