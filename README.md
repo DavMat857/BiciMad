@@ -1,6 +1,10 @@
 # BiciMad
 
-Realizado por el grupo con integrantes: David Labrador Merino, Rodrigo de la Nuez Moraleda,    Álvaro Cámara Fernández y Abdelaziz el Kadi Lachehab.
+Realizado por el grupo formado por los integrantes: 
+- David Labrador Merino
+- Rodrigo de la Nuez Moraleda
+- Álvaro Cámara Fernández 
+- Abdelaziz el Kadi Lachehab.
 
 Problemas a solucionar, o más bien datos a analizar de BiciMad:
 * Mapa de calor 
