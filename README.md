@@ -30,5 +30,5 @@ Con esta información se evalúa cuáles han sido las estaciones más concurrida
 
 ## 2020-12-01.html
 
-Este archivo muestra el resultado de ejecutar el archivo `mapaDay.py` para la información de julio de 2020, más específicamente, sobre el día `2020-12-01` (`YYYY-MM-DD`).
+Este archivo muestra el resultado obtenido al ejecutar el archivo `mapaDay.py` con la información correspondiente al mes de julio de 2020, más específicamente, sobre el día `2020-12-01` (`YYYY-MM-DD`).
 
