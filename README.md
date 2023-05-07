@@ -14,3 +14,7 @@ Problemas a solucionar, o más bien datos a analizar de BiciMad:
 	calculamos los km que hace BiciMad y añadimos CO2 ahorrado
 * Media km por grupo de edad.
 * Calcular la velocidad media del conjunto de todos los trayectos
+
+
+# mapaDay.py
+
