@@ -20,6 +20,10 @@ Problemas a solucionar, o más bien datos a analizar de BiciMad:
 
 ## SituacionesEstaciones12_2020.json
 
+## previo.ipynb
+
+## situaciones_estaciones.ipynb
+
 ## mapaDay.py
 
 Este programa ejecuta una aplicación de nombre `mapaBicimad` que lee dos archivos en formato JSON que contienen información sobre los movimientos y las situaciones de las estaciones de Bicimad durante un mes. Además, se le debe indicar un día del mes que se quiere estudiar en formato `YYYY-MM-DD` y el archivo HTML en que se guardará la visualización de los datos recopilados. 
