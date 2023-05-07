@@ -22,7 +22,7 @@ Problemas a solucionar, o más bien datos a analizar de BiciMad:
 
 ## previo.ipynb
 
-Contiene informacíón acerca de los archivos y operaciones básicas con los que vamos a trabajar.
+Contiene informacíón acerca de los archivos y operaciones básicas con las que vamos a trabajar.
 
 ## situaciones_estaciones.ipynb
 
