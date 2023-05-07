@@ -6,6 +6,8 @@ Realizado por el grupo formado por los integrantes:
 - Álvaro Cámara Fernández 
 - Abdelaziz el Kadi Lachehab.
 
+
+
 Problemas a solucionar, o más bien datos a analizar de BiciMad:
 * Mapa de calor 
 * Cliente objetivo:
