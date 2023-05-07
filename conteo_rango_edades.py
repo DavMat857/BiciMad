@@ -11,7 +11,7 @@ import sys
 from pyspark.sql import SparkSession
 import matplotlib.pyplot as plt
 
-def extract_age_range(row): #se comprueba si 'ageRange' está en la fila que estamos leyendo
+def obtener_ageRange(row): #se comprueba si 'ageRange' está en la fila que estamos leyendo
     if 'ageRange' in row:
         return row.ageRange
     else:
@@ -35,12 +35,11 @@ def lee_fichero(file, spark): #tupla[0] es el nombre del archivo.json y tupla[1]
     datos_rdd = datos.rdd
     return datos_rdd
 
-
 # def main(sp, bd):
 #     data = spark.read.json(bd) # leemos el archivo y creamos un nuevo dataframe con esta información
 #     data_rdd = data.rdd #a partir del dataframe anterior, creamos un nuevo rdd
     
-#     ageRange_rdd = data_rdd.map(extract_age_range).filter(lambda x: x is not None) #cogemos los age_range. Si alguno de ellos tiene el valor None, lo eliminamos
+#     ageRange_rdd = data_rdd.map(obtener_ageRange).filter(lambda x: x is not None) #cogemos los age_range. Si alguno de ellos tiene el valor None, lo eliminamos
 #     ageRange_conteo_rdd = ageRange_rdd.countByValue() #contamos cuantos hay de cada rango de edad
     
 #     datos_dict = dict(ageRange_conteo_rdd) #y lo convertimos en diccionario
@@ -58,7 +57,7 @@ def main2(spark, lst):
     contenido_ficheros_rdd = ficheros_rdd.map(lambda file: lee_fichero(file, spark)) #es un rdd de rdd's
     datos_rdd = contenido_ficheros_rdd.flatMap(lambda x: x) #unimos todos los rdd's en uno.
     
-    ageRange_rdd = datos_rdd.map(extract_age_range).filter(lambda x: x is not None) #cogemos los age_range. Si alguno de ellos tiene el valor None, lo eliminamos
+    ageRange_rdd = datos_rdd.map(obtener_ageRange).filter(lambda x: x is not None) #cogemos los age_range. Si alguno de ellos tiene el valor None, lo eliminamos
     ageRange_conteo_rdd = ageRange_rdd.countByValue() #contamos cuantos hay de cada rango de edad
     
     datos_dict = dict(ageRange_conteo_rdd) #y lo convertimos en diccionario
