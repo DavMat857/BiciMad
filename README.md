@@ -1,6 +1,6 @@
 # BiciMad
 
-Realizado por el grupo formado por los integrantes: 
+Trabajo realizado por el grupo de los siguientes integrantes: 
 - David Labrador Merino
 - Rodrigo de la Nuez Moraleda
 - Álvaro Cámara Fernández 
