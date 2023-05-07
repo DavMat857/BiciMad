@@ -2,9 +2,6 @@
 
 Realizado por el grupo con integrantes: David Labrador Merino, Rodrigo de la Nuez Moraleda,    Álvaro Cámara Fernández y Abdelaziz el Kadi Lachehab.
 
-1) previo.ipynb es un archivo que contiene informacíón acerca de los archivos con los que
-vamos a trabajar y contiene operaciones básicas que vamos a realizar.
-
 Problemas a solucionar, o más bien datos a analizar de BiciMad:
 * Mapa de calor 
 * Cliente objetivo:
@@ -24,6 +21,8 @@ Problemas a solucionar, o más bien datos a analizar de BiciMad:
 ## SituacionesEstaciones12_2020.json
 
 ## previo.ipynb
+
+Contiene informacíón acerca de los archivos y operaciones básicas con los que vamos a trabajar.
 
 ## situaciones_estaciones.ipynb
 
