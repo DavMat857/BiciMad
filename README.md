@@ -25,8 +25,6 @@ Problemas a solucionar, o más bien datos a analizar de BiciMad:
 
 ## DatosDeUso_12_2020.json
 
-<br>
-
 ## SituacionesEstaciones12_2020.json
 
 <br>
@@ -34,8 +32,6 @@ Problemas a solucionar, o más bien datos a analizar de BiciMad:
 ## previo.ipynb
 
 Contiene informacíón acerca de los archivos y operaciones básicas con las que vamos a trabajar.
-
-<br>
 
 ## situaciones_estaciones.ipynb
 
