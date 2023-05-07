@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Sat May  6 20:45:29 2023
-
-@author: alvarocamarafernandez
+posibles modificaciones: hacer que pueda leer mas de 1 base de datos para poder tener mas datos recopilados de varios meses
+    -> añadir archivos en el 'sys.argv' del __name__ == __main__ 
 """
 
 import sys
