@@ -13,7 +13,7 @@ import sys
 from pyspark.sql import SparkSession
 import matplotlib.pyplot as plt
 
-def extract_age_range(row): #se comprueba si 'ageRange' está en la fila que estamos leyendo
+def seleccionar_ageRange(row): #se comprueba si 'ageRange' está en la fila que estamos leyendo
     if 'ageRange' in row:
         return row.ageRange
     else:
@@ -37,8 +37,7 @@ def main(spark, bd):
     data = spark.read.json(bd) # leemos el archivo y creamos un nuevo dataframe con esta información
     data_rdd = data.rdd #a partir del dataframe anterior, creamos un nuevo rdd
     
-    # Extrae los valores de la clave "ageRange" utilizando la función auxiliar
-    ageRange_rdd = data_rdd.map(extract_age_range).filter(lambda x: x is not None) #cogemos los age_range. Si alguno de ellos tiene el valor None, lo eliminamos
+    ageRange_rdd = data_rdd.map(seleccionar_ageRange).filter(lambda x: x is not None) #cogemos los age_range. Si alguno de ellos tiene el valor None, lo eliminamos
     ageRange_conteo_rdd = ageRange_rdd.countByValue() #contamos cuantos hay de cada rango de edad
     
     datos_dict = dict(ageRange_conteo_rdd) #y lo convertimos en diccionario
@@ -54,7 +53,7 @@ def main(spark, bd):
     
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Uso: python3 {0} <file.json>".format(sys.argv[0]))
+        print("Uso: python3 {0} <filename 1.json> <filename 2.json> ... <filename n.json>".format(sys.argv[0]))
     else:
         bd = sys.argv[1]
         with SparkSession.builder.appName("Análisis base de datos " + bd).getOrCreate() as spark:
