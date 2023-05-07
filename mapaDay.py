@@ -88,9 +88,10 @@ def main(sc, usage_file, stations_file, day, outfile):
         enganches, desenganches = operations[name][0], operations[name][1]
         normalized = (enganches + desenganches) / ratio
         color = select_color(normalized)
-        popup_text = f"{name}\n{enganches} - {desenganches}"
-        folium.Marker(location = location, popup = popup_text, icon = folium.Icon(color = color)).add_to(madrid_map)
-
+        popup_text = f"<b>Estación:</b> {name}<br><b>Nº de enganches:</b> {enganches}<br><b>Nº de desenganches:</b> {desenganches}"
+        popup = folium.Popup(popup_text, max_width=400, max_height=400)
+        folium.Marker(location=location, popup=popup, icon=folium.Icon(color=color)).add_to(madrid_map).add_to(madrid_map)
+        
     madrid_map.save(outfile)
 
 
