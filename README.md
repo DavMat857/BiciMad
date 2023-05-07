@@ -6,7 +6,7 @@ Realizado por el grupo formado por los integrantes:
 - Álvaro Cámara Fernández 
 - Abdelaziz el Kadi Lachehab.
 
-
+<br>
 
 Problemas a solucionar, o más bien datos a analizar de BiciMad:
 * Mapa de calor 
@@ -21,16 +21,25 @@ Problemas a solucionar, o más bien datos a analizar de BiciMad:
 * Media km por grupo de edad.
 * Calcular la velocidad media del conjunto de todos los trayectos
 
+<br>
 
 ## DatosDeUso_12_2020.json
 
+<br>
+
 ## SituacionesEstaciones12_2020.json
+
+<br>
 
 ## previo.ipynb
 
 Contiene informacíón acerca de los archivos y operaciones básicas con las que vamos a trabajar.
 
+<br>
+
 ## situaciones_estaciones.ipynb
+
+<br>
 
 ## mapaDay.py
 
