@@ -1,7 +1,6 @@
 # BiciMad
 
-Trabajo realizado por el grupo de integrantes: David Labrador Merino, Rodrigo de la Nuez Moraleda, 
-	Álvaro Cámara Fernández y Abdelaziz el Kadi Lachehab.
+Trabajo realizado por el grupo de integrantes: David Labrador Merino, Rodrigo de la Nuez Moraleda,    Álvaro Cámara Fernández y Abdelaziz el Kadi Lachehab.
 
 1) previo.ipynb es un archivo que contiene informacíón acerca de los archivos con los que
 vamos a trabajar y contiene operaciones básicas que vamos a realizar.
