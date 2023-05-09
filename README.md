@@ -51,7 +51,7 @@ Este archivo muestra el resultado obtenido al ejecutar el archivo `mapaDay.py` c
 
 
 
-## conteo_por_edades.py
+## conteo_rango_edades.py
 
 Este archivo lee una serie de base de datos en las que se encuentre el dato `ageRange` (si no se encuentra, se pone un None y filtra luego segun los datos encontrados). Estas bases de datos deben de tener un formato similar al JSON:
 	Son archivos en los cuales cada línea es un archivo JSON (es un diccionario)
