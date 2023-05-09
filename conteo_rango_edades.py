@@ -1,21 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-posibles modificaciones: hacer que pueda leer mas de 1 base de datos para poder tener mas datos recopilados de varios meses
-    -> añadir archivos en el 'sys.argv' del __name__ == __main__ 
-    -> Hay un fallo. El método 'parallelize' de la linea 56 da fallo porque parallelize es un método de SparkContext
-        hay que cambiarlo
-"""
 
 import sys
-from pyspark.sql import SparkSession
+from pyspark import SparkContext, SparkConf
+# import json
 import matplotlib.pyplot as plt
-
-def obtener_ageRange(row): #se comprueba si 'ageRange' está en la fila que estamos leyendo
-    if 'ageRange' in row:
-        return row.ageRange
-    else:
-        return None
+from ast import literal_eval
 
 def grafica_datos_rango_edades(OX, OY, filename):
     fig, ax = plt.subplots()
@@ -26,38 +16,30 @@ def grafica_datos_rango_edades(OX, OY, filename):
 
 def grafica_queso(claves, valores, filename):
     fig, ax = plt.subplots()
-    ax.pie(valores, labels=claves, autopct='%1.1f%%', startangle=90)
+    colors = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f"]
+    ax.pie(valores, labels = claves, colors = colors, startangle=90) #añadir labels = claves (al añadir, se pintan los números en la grafica)
+    ax.set_title("GRÁFICO DE SECTORES MOSTRANDO USO POR RANGO DE EDAD.")
     ax.axis('equal') #hacemos que el gráfico sea un círculo
+    total, lst_leyenda = sum(valores), []
+    for clave, valor in zip(claves, valores):
+        porcentaje = round((valor/total) * 100, 2) #cogemos el porcentaje y lo rodeamos a 1 único decimal
+        lst_leyenda.append(str(clave) + " -> " + str(porcentaje) + "%")
+    ax.legend(lst_leyenda, loc="lower right", bbox_to_anchor=(1.13, -0.1))
     fig.savefig(filename)
 
-def lee_fichero(file, spark): #tupla[0] es el nombre del archivo.json y tupla[1] es la sesion de spark
-    datos = spark.read.json(file)
-    datos_rdd = datos.rdd
-    return datos_rdd
+"""
+def obtener_ageRange(row): #se comprueba si 'ageRange' está en la fila que estamos leyendo
+    if 'ageRange' in row:
+        return row.ageRange
+    else:
+        return None
 
-# def main(sp, bd):
-#     data = spark.read.json(bd) # leemos el archivo y creamos un nuevo dataframe con esta información
-#     data_rdd = data.rdd #a partir del dataframe anterior, creamos un nuevo rdd
-    
-#     ageRange_rdd = data_rdd.map(obtener_ageRange).filter(lambda x: x is not None) #cogemos los age_range. Si alguno de ellos tiene el valor None, lo eliminamos
-#     ageRange_conteo_rdd = ageRange_rdd.countByValue() #contamos cuantos hay de cada rango de edad
-    
-#     datos_dict = dict(ageRange_conteo_rdd) #y lo convertimos en diccionario
-    
-#     datos_ordenados = dict(sorted(datos_dict.items()))
-    
-#     #para ver visualmente los datos obtenidos, mostramos un gráfico
-#     lista_claves = list(datos_ordenados.keys())
-#     lista_valores = list(datos_ordenados.values())
-#     grafica_datos_rango_edades(lista_claves, lista_valores, "gráfico_edades_VS_cantidad_viajes.jpg")
-#     grafica_queso(lista_claves, lista_valores, "gráfico_queso_viajes.jpg")
 
-def main2(spark, lst):
-    ficheros_rdd = spark.parallelize(lst) #creamos un rdd de los ficheros
-    contenido_ficheros_rdd = ficheros_rdd.map(lambda file: lee_fichero(file, spark)) #es un rdd de rdd's
-    datos_rdd = contenido_ficheros_rdd.flatMap(lambda x: x) #unimos todos los rdd's en uno.
+def main(sp, bd):
+    data = spark.read.json(bd) # leemos el archivo y creamos un nuevo dataframe con esta información
+    data_rdd = data.rdd #a partir del dataframe anterior, creamos un nuevo rdd
     
-    ageRange_rdd = datos_rdd.map(obtener_ageRange).filter(lambda x: x is not None) #cogemos los age_range. Si alguno de ellos tiene el valor None, lo eliminamos
+    ageRange_rdd = data_rdd.map(obtener_ageRange).filter(lambda x: x is not None) #cogemos los age_range. Si alguno de ellos tiene el valor None, lo eliminamos
     ageRange_conteo_rdd = ageRange_rdd.countByValue() #contamos cuantos hay de cada rango de edad
     
     datos_dict = dict(ageRange_conteo_rdd) #y lo convertimos en diccionario
@@ -69,12 +51,49 @@ def main2(spark, lst):
     lista_valores = list(datos_ordenados.values())
     grafica_datos_rango_edades(lista_claves, lista_valores, "gráfico_edades_VS_cantidad_viajes.jpg")
     grafica_queso(lista_claves, lista_valores, "gráfico_queso_viajes.jpg")
+"""
+
+def obtener_contenido(fila_json):
+    # print(fila_json))
+    # print(type(fila_json))
+    if fila_json == "\n" or fila_json == "" or fila_json == " ":
+        return None
+    dict_row = literal_eval(fila_json) #convertimos un string (con forma de diccionario) a diccionario
+    # print(type(dict_row))
+    # print(dict_row.keys())
+    if 'ageRange' in dict_row.keys():
+        #print(dict_row['ageRange'])
+        return dict_row['ageRange']
+    else:
+        return None
+
+def main2(sc, files):
+    rdd_contenido = sc.emptyRDD()
+    for file in files:
+        file_rdd = sc.textFile(file) #leemos el archivo
+        contenido_ageRange_rdd = file_rdd.map(obtener_contenido).\
+            filter(lambda x: x is not None) #obtenemos el ageRange de cada archivo y eliminamos todos aquellos que nos hayan salido 'None'
+        rdd_contenido = rdd_contenido.union(contenido_ageRange_rdd) #unimos los rdd`s para tener 1 único
+    ageRange_conteo_rdd = rdd_contenido.countByValue()
+    # print(ageRange_conteo)
+    datos_dict = dict(ageRange_conteo_rdd) #y lo convertimos en diccionario
+    
+    datos_ordenados = dict(sorted(datos_dict.items()))
+    
+    #para ver visualmente los datos obtenidos, mostramos un gráfico
+    lista_claves = list(datos_ordenados.keys())
+    lista_valores = list(datos_ordenados.values())
+    # grafica_datos_rango_edades(lista_claves, lista_valores, "gráfico_edades_VS_cantidad_viajes.jpg")
+    grafica_queso(lista_claves, lista_valores, "comparacion_rango_edades.png")
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
+    if len(sys.argv) == 1:
         print("Uso: python3 {0} <filename 1.json> <filename 2.json> ... <filename n.json>".format(sys.argv[0]))
     else:
-        with SparkSession.builder.appName("Análisis de bases de datos").getOrCreate() as spark:
+        conf = SparkConf().setAppName("analisis base de datos -> rango edad")
+        with SparkContext(conf=conf) as sc:
+            sc.setLogLevel("ERROR")
             lst = [sys.argv[i] for i in range(1,(len(sys.argv)))] #lista con los nombres de archivos
-            main2(spark, lst)
+            main2(sc, lst)
+
