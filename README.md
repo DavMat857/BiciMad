@@ -49,3 +49,10 @@ Con esta información se evalúa cuáles han sido las estaciones más concurrida
 
 Este archivo muestra el resultado obtenido al ejecutar el archivo `mapaDay.py` con la información correspondiente al mes de julio de 2020, más específicamente, sobre el día `2020-12-01` (`YYYY-MM-DD`).
 
+
+
+## conteo_por_edades.py
+
+Este archivo lee una serie de base de datos en las que se encuentre el dato `ageRange` (si no se encuentra, se pone un None y filtra luego segun los datos encontrados). Estas bases de datos deben de tener un formato similar al JSON:
+	Son archivos en los cuales cada línea es un archivo JSON (es un diccionario)
+Así, cuando ya tenemos recogidos todos los datos, contamos la cantidad de veces que aparece cada dato usando la función `countByValue()` y, seguidamente, se representan los datos mediante un diagrama de sectores (también damos opción a devolver un gráfico de barras, pero es más visual el gráfico de sectores). El gráfico, finalmente, se guardará en la carpeta desde la que se esté ejecutando el archivo.
