@@ -1,5 +1,5 @@
 from pyspark import SparkContext, SparkConf
-import sys, json, folium
+import json, folium
 
 import os, sys
 os.environ['PYSPARK_PYTHON'] = sys.executable
@@ -45,7 +45,16 @@ def max_sum_sublist(lst):
     max_sum = max(sum(sublist) for sublist in lst)
     return max_sum
 
-def main(sc, usage_file, stations_file, day, outfile):
+
+from collections import Counter
+
+# Función para contar el número de ocurrencias en una lista
+def count_occurrences(lists):
+    counts = Counter(tuple(lst) for lst in lists)
+    return [[*lst, count] for lst, count in counts.items()]
+
+
+def main(sc, usage_file, stations_file, day, outfile, top=500):
     usage_rdd = sc.textFile(usage_file)
     stations_rdd = sc.textFile(stations_file)
 
@@ -53,8 +62,13 @@ def main(sc, usage_file, stations_file, day, outfile):
     filtered_usage_rdd = usage_rdd.filter(lambda x: json.loads(x)['unplug_hourTime'].startswith(day))
 
     # Extraemos la información de los enganches y desenganches
-    result1 = filtered_usage_rdd.map(lambda x: {'idplug_station': json.loads(x)['idplug_station'], 
-                                            'idunplug_station': json.loads(x)['idunplug_station']}).collect()
+    result = filtered_usage_rdd.map(lambda x: {'idplug_station': json.loads(x)['idplug_station'], 
+                                            'idunplug_station': json.loads(x)['idunplug_station']})
+    result1 = result.collect()
+    trips = result.map(lambda x: list(x.values())).collect()
+    trips_count = count_occurrences(trips)
+    sorted_trips = sorted(trips_count, key=lambda x: x[2])
+    head_trips = sorted_trips[len(sorted_trips)-top:]
 
     # Filtramos la situación de las estaciones para el día dado
     filtered_rdd = stations_rdd.filter(lambda x: json.loads(x)['_id'].startswith(day))
@@ -91,7 +105,22 @@ def main(sc, usage_file, stations_file, day, outfile):
         popup_text = f"<b>Estación:</b> {name}<br><b>Nº de enganches:</b> {enganches}<br><b>Nº de desenganches:</b> {desenganches}"
         popup = folium.Popup(popup_text, max_width=400, max_height=400)
         folium.Marker(location=location, popup=popup, icon=folium.Icon(color=color)).add_to(madrid_map)
+    
+    for trip in head_trips:
+        start_index, end_index = trip[0], trip[1]
         
+        start_pos = [float(merged_result[start_index]["latitude"]),
+                     float(merged_result[start_index]["longitude"])]
+        
+        end_pos = [float(merged_result[end_index]["latitude"]),
+                   float(merged_result[end_index]["longitude"])]
+        
+        line_points = [start_pos, end_pos]
+        popup_text = "<b>Número de viajes:</b>" + str(int(trip[2]))
+        popup = folium.Popup(popup_text, max_width=400, max_height=400)
+        line = folium.PolyLine(locations=line_points, color='blue', weight=2, popup=popup)
+        line.add_to(madrid_map)
+    
     madrid_map.save(outfile)
 
 
