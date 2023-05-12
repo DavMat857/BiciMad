@@ -90,7 +90,7 @@ def main(sc, usage_file, stations_file, day, outfile):
         color = select_color(normalized)
         popup_text = f"<b>Estación:</b> {name}<br><b>Nº de enganches:</b> {enganches}<br><b>Nº de desenganches:</b> {desenganches}"
         popup = folium.Popup(popup_text, max_width=400, max_height=400)
-        folium.Marker(location=location, popup=popup, icon=folium.Icon(color=color)).add_to(madrid_map).add_to(madrid_map)
+        folium.Marker(location=location, popup=popup, icon=folium.Icon(color=color)).add_to(madrid_map)
         
     madrid_map.save(outfile)
 
