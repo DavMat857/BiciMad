@@ -4,7 +4,7 @@ Trabajo realizado por el grupo de los siguientes integrantes:
 - David Labrador Merino
 - Rodrigo de la Nuez Moraleda
 - Álvaro Cámara Fernández 
-- Abdelaziz el Kadi Lachehab.
+- Abdelaziz el Kadi Lachehab
 
 <br>
 
