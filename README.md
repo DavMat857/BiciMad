@@ -19,7 +19,7 @@ Problemas a solucionar, o más bien datos a analizar de BiciMad:
 	3)Creamos función del %gasolina, %diesel, ...
 	calculamos los km que hace BiciMad y añadimos CO2 ahorrado
 * Media km por grupo de edad.
-* Calcular la velocidad media del conjunto de todos los trayectos
+* Calcular la velocidad media las distintas rutas. Para identificar tramos lentos, indicando posibles problemas y carencias en la infraestructura de la ciudad: Falta de carriles bici, malas condiciones de la via, etc.
 
 <br>
 
