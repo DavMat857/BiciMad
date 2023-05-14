@@ -45,6 +45,8 @@ Primero, el programa guarda las posiciones (`[longitude,latitude]`) y los identi
 
 Con esta información se evalúa cuáles han sido las estaciones más concurridas a lo largo del día introducido, y utilizando la librería de visualización geoespacial `folium` presentamos esta información en un mapa de forma que se pueda acceder a la información de enganches y desenganches de todas las estaciones, así como proporcionar una representación que (mediante una escala de color) permita conocer cuáles son las estaciones de mayor interés. Es importante remarcar que el formato de los archivos JSON debe ser el que siguen los archivos del año 2020 (véanse `DatosDeUso_12_2020.json` y `SituacionesEstaciones12_2020.json` como posibles referencias) de libre acceso en la página web de la EMT de Madrid [https://opendata.emtmadrid.es/Datos-estaticos/Datos-generales](https://opendata.emtmadrid.es/Datos-estaticos/Datos-generales-(1)).
 
+Además, se han delineado los trayectos con más apariciones en el conjunto de datos de uso de los cuáles se ha seleccionado `top = 500` para visualizar las 500 rutas más concurridas a lo large de ese día, junto con la información de las estaciones explicada en el párrafo anterior. Si se desea, este valor puede cambiarse dentro del código para reducir o aumentar el número de rutas a considerar.
+
 ## 2020-12-01.html
 
 Este archivo muestra el resultado obtenido al ejecutar el archivo `mapaDay.py` con la información correspondiente al mes de julio de 2020, más específicamente, sobre el día `2020-12-01` (`YYYY-MM-DD`).
