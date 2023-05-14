@@ -11,4 +11,10 @@ Tareas:
 - se muestran los datos de los codigos postales sin explciarse y sin gráfico
 - comentarios en código con "TODO: "
 
-* 
+* Obtener_datos_situaciones.ipynb
+- variables con nombres más significativos (en vez de "df" algo como "estaciones_2020_12")
+- creo que lo que se hace con el "df.select('stations')" no es lo que buscabamos
+- "direccion" realmente no es el dataframe que buscamos, será direccion[0]?
+- cual es el objetivo de este notebook?
+
+
