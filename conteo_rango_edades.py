@@ -85,6 +85,10 @@ def main2(sc, files):
     lista_valores = list(datos_ordenados.values())
     # grafica_datos_rango_edades(lista_claves, lista_valores, "gráfico_edades_VS_cantidad_viajes.jpg")
     grafica_queso(lista_claves, lista_valores, "comparacion_rango_edades.png")
+    claves_actualizadas = lista_claves[1:]
+    valores_actualizados = lista_valores[1:]
+    grafica_queso(claves_actualizadas, valores_actualizados, "comparacion_rango_edades_filtrado.png")
+
 
 
 if __name__ == "__main__":
@@ -96,4 +100,3 @@ if __name__ == "__main__":
             sc.setLogLevel("ERROR")
             lst = [sys.argv[i] for i in range(1,(len(sys.argv)))] #lista con los nombres de archivos
             main2(sc, lst)
-
