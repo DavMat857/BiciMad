@@ -1,0 +1,20 @@
+Tareas:
+
+* previo.ipynb:
+- variables con nombres más significativos (en vez de "df" algo como "datos_2020_12")
+- la explicación del dataframe quizás es necesaria solo en el readme del repo
+- ¿por que se elimina la columna postal_code? ¿es un ejemplo de uso de spark? ¿tenemos que hacer eso?
+- label de eje x en el gráfico de edad/n de viajes, en vez de 0,1... poder los rangos de edad
+- el filter en el "problema 1" se puede hacer todo a la vez
+- "from pyspark.sql.functions import mean" no se suele hacer porque puede dar problemas (no es importante, se puede quedar asi)
+- hay codigos postales que no tienen sentido
+- se muestran los datos de los codigos postales sin explciarse y sin gráfico
+- comentarios en código con "TODO: "
+
+* Obtener_datos_situaciones.ipynb
+- variables con nombres más significativos (en vez de "df" algo como "estaciones_2020_12")
+- creo que lo que se hace con el "df.select('stations')" no es lo que buscabamos
+- "direccion" realmente no es el dataframe que buscamos, será direccion[0]?
+- cual es el objetivo de este notebook?
+
+
