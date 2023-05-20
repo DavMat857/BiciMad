@@ -17,4 +17,19 @@ Tareas:
 - "direccion" realmente no es el dataframe que buscamos, será direccion[0]?
 - cual es el objetivo de este notebook?
 
+* resumen.ipynb
+- revisar todo, me parece dificil de leer (outputs legibles)
+- importar funciones en vez de ejecutar python
+- revisar rutas, hacerlo en general
 
+* rutas_lentas.py
+- hacer mas modular el script (separar en mas funciones)
+- pasar a pyspark lo que falta de pandas
+- comentarios mas claros
+- arreglar rutas de los inputs
+- tener el id_map como input en vez de calcularlo
+
+* GENERAL
+- revisar nombres y rutas de los resultado, por ejemplo el mapa yo le pondria otro nombre, cualquiera deberia entender lo que hay en el repo
+- los previos deberian ser más claros, no creo q se entienda bien el objetivo. Si es complicado, es preferible eliminarlo a dejarlo
+- hacer una función general para sacar el mapeo de ID de la estación a datos como la longitud o nombre de la estación
