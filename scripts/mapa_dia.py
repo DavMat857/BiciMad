@@ -54,7 +54,7 @@ def count_occurrences(lists):
     return [[*lst, count] for lst, count in counts.items()]
 
 
-def main(sc, usage_file, stations_file, day, outfile, top=500):
+def main(sc, usage_file='DatosDeuso12_2020.json', stations_file='SituacionesEstaciones12_2020.json', day='2020-12-01', outfile='mapa_2020-12-01.html', top=500):
     usage_rdd = sc.textFile(usage_file)
     stations_rdd = sc.textFile(stations_file)
 
@@ -122,8 +122,7 @@ def main(sc, usage_file, stations_file, day, outfile, top=500):
         line.add_to(madrid_map)
     
     madrid_map.save(outfile)
-
-
+    
 if __name__ == '__main__':
     if len(sys.argv) == 5:
         conf = SparkConf().setAppName("mapaBicimad")
