@@ -1,4 +1,4 @@
-# BiciMad
+# Práctica Obligatoria Spark. BiciMad
 
 Trabajo realizado por el grupo de los siguientes integrantes: 
 - David Labrador Merino
