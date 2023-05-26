@@ -53,11 +53,12 @@ Además, se han delineado los trayectos con más apariciones en el conjunto de d
 
 Por último, se puede importar la función `main(sc, usage_file, stations_file, day, outfile, top)` para usarse directamente desde otro programa. De forma predeterminada, se han seleccionado los valores de la ejecución anterior para que pueda servir como ejemplo (nótese que los archivos `.json` en este caso deberán encontrarse en el mismo directorio que el programa a ejecutar).
 
+<br>
 ## mapa_2020-12-01.html
 
 Este archivo muestra el resultado obtenido al ejecutar el archivo `mapa_dia.py` con la información correspondiente al mes de julio de 2020, más específicamente, sobre el día `2020-12-01` (`YYYY-MM-DD`).
 
-
+<br>
 
 ## conteo_rango_edades.py
 
