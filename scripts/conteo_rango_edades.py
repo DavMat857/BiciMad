@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import os
 import sys
 from pyspark import SparkContext, SparkConf
 # import json
@@ -15,20 +16,22 @@ equivalencia_edad = {0: "Edad no determinada",
                      5: "41 - 65 años",
                      6: " > 66 años"}
 
-def grafica_queso(claves, valores, filename):
+def grafica_queso(claves, valores, nombre, ruta):
+    if not os.path.exists(ruta): #comprobamos a ver si existe la carpeta "resultados", sino, la creamos
+        os.makedirs(ruta)
+    direccion = os.path.join(ruta, nombre) #dirección donde se va a guardar el gráfico
     fig, ax = plt.subplots()
     colors = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f"]
     ax.pie(valores, labels = claves, colors = colors, startangle=90)
     ax.set_title("GRÁFICO DE SECTORES MOSTRANDO USO POR RANGO DE EDAD.")
     ax.axis('equal') #hacemos que el gráfico sea un círculo
-    fig.savefig(filename)
     total, lst_leyenda = sum(valores), []
     for clave, valor in zip(claves, valores):
         porcentaje = round((valor/total) * 100, 2) #cogemos el porcentaje y lo rodeamos a 2 decimales
         lst_leyenda.append(str(clave) + ": " + equivalencia_edad[clave] + " con porcentaje " + str(porcentaje) + "%")
     ax.legend(lst_leyenda, loc="lower right", bbox_to_anchor=(1.13, -0.1))
-    fig.savefig(filename)
-    print ("El gráfico {0} se ha guardado correctamente.".format(filename))
+    fig.savefig(direccion)
+    print ("El gráfico {0} se ha guardado correctamente en la siguiente ruta: {1}".format(nombre, direccion))
 
 def obtener_contenido(fila_json):
     # print(fila_json))
@@ -50,9 +53,9 @@ def main2(sc, files):
     rdd_contenido = sc.emptyRDD()
     for file in files:
         file_rdd = sc.textFile(file) #leemos el archivo
-        contenido_rdd = file_rdd.map(obtener_contenido)
+        contenido_rdd = file_rdd.map(obtener_contenido) #obtenemos los datos que necesitamos de cada archivo
         
-        contenido_filtrado_1_rdd = contenido_rdd.filter(lambda x: x!= None) #obtenemos el ageRange de cada archivo y eliminamos todos aquellos que nos hayan salido 'None'
+        contenido_filtrado_1_rdd = contenido_rdd.filter(lambda x: x!= None) #eliminamos todos aquellos que nos hayan salido 'None'
         
         contenido_filtrado_2_rdd = contenido_filtrado_1_rdd.filter(lambda par: par[1] >= 60) #filtramos todos aquellos viajes de manera que su duración es superior al minuto
         
@@ -70,12 +73,12 @@ def main2(sc, files):
     lista_claves = list(datos_ordenados.keys())
     lista_valores = list(datos_ordenados.values())
     
-    grafica_queso(lista_claves, lista_valores, "comparacion_rango_edades.png") #creamos una gráfica de sectores
+    grafica_queso(lista_claves, lista_valores, "comparacion_rango_edades.png", "resultados") #creamos una gráfica de sectores
     
     #eliminamos la "Edad no determinada" para poder obtener información más relevante
     claves_actualizadas = lista_claves[1:]
     valores_actualizados = lista_valores[1:]
-    grafica_queso(claves_actualizadas, valores_actualizados, "comparacion_rango_edades_filtrado.png")
+    grafica_queso(claves_actualizadas, valores_actualizados, "comparacion_rango_edades_filtrado.png", "resultados")
     
     # calculemos ahora el tiempo del viaje:
     
@@ -87,11 +90,12 @@ def main2(sc, files):
     print("La media de duración de los viajes (redondeada a 3 decimales) es: " + str(media) + " segundos.")
 
 if __name__ == "__main__": #admite todas las bases de datos que le queramos introducir, no solamente 1
-    if len(sys.argv) == 1:
-        print("Uso: python3 {0} <filename 1.json> <filename 2.json> ... <filename n.json>".format(sys.argv[0]))
+    if len(sys.argv) == 1 or len(sys.argv) == 2:
+        print("Uso: python3 {0} ruta/de/archivos <filename_1.json> <filename_2.json> ... <filename_n.json>".format(sys.argv[0]))
     else:
         conf = SparkConf().setAppName("analisis base de datos -> rango edad y tiempo medio")
         with SparkContext(conf=conf) as sc:
+            ruta = sys.argv[1]
             sc.setLogLevel("ERROR")
-            lst = [sys.argv[i] for i in range(1,(len(sys.argv)))] #lista con los nombres de archivos
+            lst = [ruta + "/" + sys.argv[i] for i in range(2,(len(sys.argv)))] #lista con la dirección de cada archivo
             main2(sc, lst)
