@@ -53,9 +53,9 @@ def main2(sc, files):
     rdd_contenido = sc.emptyRDD()
     for file in files:
         file_rdd = sc.textFile(file) #leemos el archivo
-        contenido_rdd = file_rdd.map(obtener_contenido) #obtenemos los datos que necesitamos de cada archivo
+        contenido_rdd = file_rdd.map(obtener_contenido)
         
-        contenido_filtrado_1_rdd = contenido_rdd.filter(lambda x: x!= None) #eliminamos todos aquellos que nos hayan salido 'None'
+        contenido_filtrado_1_rdd = contenido_rdd.filter(lambda x: x!= None) #obtenemos el ageRange de cada archivo y eliminamos todos aquellos que nos hayan salido 'None'
         
         contenido_filtrado_2_rdd = contenido_filtrado_1_rdd.filter(lambda par: par[1] >= 60) #filtramos todos aquellos viajes de manera que su duración es superior al minuto
         
@@ -89,13 +89,16 @@ def main2(sc, files):
     media = round(suma / num_viajes, 3)
     print("La media de duración de los viajes (redondeada a 3 decimales) es: " + str(media) + " segundos.")
 
+
+
 if __name__ == "__main__": #admite todas las bases de datos que le queramos introducir, no solamente 1
-    if len(sys.argv) == 1 or len(sys.argv) == 2:
+    long = len(sys.argv)
+    if long == 1 or long == 2:
         print("Uso: python3 {0} ruta/de/archivos <filename_1.json> <filename_2.json> ... <filename_n.json>".format(sys.argv[0]))
     else:
         conf = SparkConf().setAppName("analisis base de datos -> rango edad y tiempo medio")
         with SparkContext(conf=conf) as sc:
             ruta = sys.argv[1]
             sc.setLogLevel("ERROR")
-            lst = [ruta + "/" + sys.argv[i] for i in range(2,(len(sys.argv)))] #lista con la dirección de cada archivo
+            lst = [ruta + "/" + sys.argv[i] for i in range(2,long)] #lista con la dirección de cada archivo
             main2(sc, lst)
