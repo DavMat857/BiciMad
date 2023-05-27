@@ -1,4 +1,3 @@
-from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
 from pyspark.sql import types as T
 
@@ -118,17 +117,34 @@ def obtener_velocidades(ruta_movements, ruta_stations, spark_session):
     movements_df = movements_df.withColumn("ruta", get_route_str_udf(F.col("dist_metros"), F.col("idplug_station"), F.col("idunplug_station")))
 
     # Filtrar los valores None en la columna "precio"
-    movements_df_nonull = movements_df.filter(movements_df.velocidad_m_s.isNotNull())
-    movements_df_filtrado = movements_df_nonull.filter(F.col("velocidad_m_s") > 0.0)
+    movements_df = movements_df.filter(movements_df.velocidad_m_s.isNotNull())
+    movements_df = movements_df.filter(F.col("velocidad_m_s") > 0.0)
 
     # Agrupar por "id" y calcular la media y el conteo
-    results = movements_df_filtrado.groupBy("ruta").agg(F.mean('velocidad_m_s').alias('mean'), F.count('velocidad_m_s').alias('count'))
+    results = movements_df.groupBy("ruta").agg(F.mean('velocidad_m_s').alias('mean'), F.count('velocidad_m_s').alias('count'))
 
     # Filtramos los resultados donde el conteo es mayor que min_count
     min_count = 50
-    results_filtrado = results.filter(F.col("count") > min_count)
+    results = results.filter(F.col("count") > min_count)
+
+    top_results = results.orderBy(F.col("mean").desc()).limit(10)
 
     # Creamos un diccionario para el gráfico
-    results_dict = {row['ruta']: row['mean'] for row in results_filtrado.collect()}
+    # results_dict = {row['ruta']: row['mean'] for row in top_results.collect()}
 
-    return results_dict
+    return top_results
+
+
+if __name__ == '__main__':
+    from pyspark.sql import SparkSession
+
+    spark_session = SparkSession.builder.appName("RutasLentas").config("spark.executor.memory", "8g").getOrCreate()
+    spark_session.sparkContext.setLogLevel("ERROR")
+
+    # Elegimos el mes que vamos a analizar
+    ruta_movements = r"datos\movements\202012_movements.json"
+    ruta_stations = r"datos\stations\202012_stations.json"
+
+    velocidades = obtener_velocidades(ruta_movements, ruta_stations, spark_session)
+
+    print(velocidades)
