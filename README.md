@@ -8,8 +8,8 @@ Trabajo realizado por el grupo de los siguientes integrantes:
 
 <br>
 
-Problemas a solucionar, o más bien datos a analizar de BiciMad:
-* Mapa de calor 
+CAMBIAR, NO ESTA ACTUALIZADO ----> Problemas a solucionar y datos a analizar de BiciMad:
+* Mapa de calor
 * Cliente objetivo:
 	Obtendremos información acerca del cliente objetivo, en función de este dato
 	podremos buscar estrategias para llegar a otros públicos.
@@ -21,17 +21,40 @@ Problemas a solucionar, o más bien datos a analizar de BiciMad:
 * Media km por grupo de edad.
 * Calcular la velocidad media las distintas rutas. Para identificar tramos lentos, indicando posibles problemas y carencias en la infraestructura de la ciudad: Falta de carriles bici, malas condiciones de la via, etc.
 
-<br>
+Para poder probar las distintas funciones, observar algunos resultados de los estudios y ver ejemplos de cómo ejecutar los distintos programas se recomienda seguir el Notebook resumen: ``summary.ipynb``.
 
-Para comprobar que las ejecuciones de los distintos programas funcionan correctamente se han utilizado los archivos de datos de movimiento `DatosDeUso12_2020.json` y de la información de la situación de las distintas estaciones `SituacionesEstaciones12_2020.json` que se corresponden con los archivos correspondientes al mes de diciembre de 2020, que pueden encontrarse en la carpeta *datos* y la página web oficial de BiciMad: [https://opendata.emtmadrid.es/Datos-estaticos/Datos-generales](https://opendata.emtmadrid.es/Datos-estaticos/Datos-generales-(1)).
-
-<br>
-
-El archivo `leyenda.pdf` contiene información acerca del formato de los datos que pueden encontrarse en los ficheros correspondientes a los datos de movimiento de los usuarios que han utilizado los servicios disponibles y las situaciones de la estaciones activas. Además, pueden verse ejemplos de cómo ejecutar los distintos programas y algunos resultados obtenidos en el Jupyter Notebook `summary.ipynb`.
+En el repositorio también se pueden encontrar los datos usados (en la carpeta ``/datos``), los scripts para obtener resultados (en la carpeta ``/scripts``) y los resultados (en la carpeta ``\resultados``). También se encuenta el Notebook ``previos.ipynb``, en que se han realizado pruebas para entender los datos de entrada.  
 
 <br>
 
-## mapa_dia.py
+## Datos usados
+
+Para realizar los distintos estudios se han utilizado los datos de la página web oficial de [BiciMad](https://opendata.emtmadrid.es/Datos-estaticos/Datos-generales-(1)). Estos datos se pueden encontrar dividos por tipo: 
+
+* Movimiento (``datos\movements``): Información sobre el uso de las bicicletas por parte del usuario final)
+* Estaciones (``datos\stations``): Información de la situación de las estaciones). 
+
+Se encuentran disponibles los datos desde Junio hasta Diciembre del 2020. Para más información sobre los datos, se puede consultar el archivo `leyenda.pdf`. Este contiene información acerca del formato de los datos y la información que podemos encontrar en ellos.
+
+<br>
+
+## Estudios realizados
+
+### Estudio 1: Estadísticas de la edad
+
+Script: conteo_rango_edades.py
+
+Este archivo lee una serie de base de datos en las que se encuentre el dato `ageRange` (si no se encuentra, se pone un None y filtra luego segun los datos encontrados). Estas bases de datos deben de tener un formato similar al JSON:
+
+	Son archivos en los cuales cada línea es un archivo JSON (es un diccionario).
+
+Así, cuando ya tenemos recogidos todos los datos, contamos la cantidad de veces que aparece cada dato usando la función `countByValue()` y, seguidamente, se representan los datos mediante un diagrama de sectores (también damos opción a devolver un gráfico de barras, pero es más visual el gráfico de sectores). El gráfico, finalmente, se guardará en la carpeta desde la que se esté ejecutando el archivo.
+
+<br>
+
+### Estudio 2: Mapa de rutas más usadas en un día
+
+Script: mapa_dia.py
 
 Este programa ejecuta una aplicación de nombre `mapaBicimad` que lee dos archivos en formato JSON que contienen información sobre los movimientos y las situaciones de las estaciones de Bicimad durante un mes. Además, se le debe indicar un día del mes que se quiere estudiar en formato `YYYY-MM-DD` y el archivo HTML en que se guardará la visualización de los datos recopilados. 
 
@@ -49,17 +72,31 @@ Por último, se puede importar la función `main(sc, usage_file, stations_file, 
 
 <br>
 
-## mapa_2020-12-01.html
+### Estudio 3: Rutas más lentas
 
-Este archivo muestra el resultado obtenido al ejecutar el archivo `mapa_dia.py` con la información correspondiente al mes de julio de 2020, más específicamente, sobre el día `2020-12-01` (`YYYY-MM-DD`).
+Script: rutas_lentas.py
+
+que script es, breve descripción, como se usa
 
 <br>
 
-## conteo_rango_edades.py
+### Estudio 4: (DAVID)
 
-Este archivo lee una serie de base de datos en las que se encuentre el dato `ageRange` (si no se encuentra, se pone un None y filtra luego segun los datos encontrados). Estas bases de datos deben de tener un formato similar al JSON:
+que script es, breve descripción, como se usa
 
-	Son archivos en los cuales cada línea es un archivo JSON (es un diccionario).
+<br>
 
-Así, cuando ya tenemos recogidos todos los datos, contamos la cantidad de veces que aparece cada dato usando la función `countByValue()` y, seguidamente, se representan los datos mediante un diagrama de sectores (también damos opción a devolver un gráfico de barras, pero es más visual el gráfico de sectores). El gráfico, finalmente, se guardará en la carpeta desde la que se esté ejecutando el archivo.
+## Resultados
+
+### mapa_2020-12-01.html
+
+Este archivo muestra el resultado obtenido al ejecutar el archivo `mapa_dia.py` con la información correspondiente al mes de julio de 2020, más específicamente, sobre el día `2020-12-01` (`YYYY-MM-DD`).
+
+### ESTUDIO 1 (ALVARO)
+
+### ESTUDIO 3 (AZIZ)
+
+### ESTUDIO 4 (DAVID)
+
+<br>
 
