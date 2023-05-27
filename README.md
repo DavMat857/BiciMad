@@ -23,9 +23,8 @@ Problemas a solucionar, o más bien datos a analizar de BiciMad:
 
 <br>
 
-## DatosDeUso_12_2020.json
+Para comprobar que las ejecuciones de los distintos programas funcionan correctamente se han utilizado los archivos de datos de movimiento `DatosDeUso_12_2020.json` y de la información de las distintas estaciones `SituacionesEstaciones12_2020.json` (ambos son versiones reducidas de los archivos correspondientes al mes de diciembre de 2020, que pueden encontrarse en la página web oficial de BiciMad: [https://opendata.emtmadrid.es/Datos-estaticos/Datos-generales](https://opendata.emtmadrid.es/Datos-estaticos/Datos-generales-(1))).
 
-## SituacionesEstaciones12_2020.json
 
 <br>
 
