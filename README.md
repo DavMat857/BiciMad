@@ -25,14 +25,9 @@ Problemas a solucionar, o más bien datos a analizar de BiciMad:
 
 Para comprobar que las ejecuciones de los distintos programas funcionan correctamente se han utilizado los archivos de datos de movimiento `DatosDeUso12_2020.json` y de la información de las distintas estaciones `SituacionesEstaciones12_2020.json` en la carpeta *Previos* de este repositorio (ambos son versiones reducidas de los archivos correspondientes al mes de diciembre de 2020, que pueden encontrarse en la página web oficial de BiciMad: [https://opendata.emtmadrid.es/Datos-estaticos/Datos-generales](https://opendata.emtmadrid.es/Datos-estaticos/Datos-generales-(1))).
 
-
 <br>
 
-## leyenda.pdf
-
-Contiene informacíón acerca de los archivos y operaciones básicas con las que vamos a trabajar.
-
-## summary.ipynb
+El archivo `leyenda.pdf` contiene información acerca del formato de los datos que pueden encontrarse en los ficheros correspondientes a los datos de movimiento de los usuarios que han utilizado los servicios disponibles y las situaciones de la estaciones activas. Además, pueden verse ejemplos de cómo ejecutar los distintos programas y algunos resultados obtenidos en el Jupyter Notebook `summary.ipynb`.
 
 <br>
 
