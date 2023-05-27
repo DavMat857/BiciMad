@@ -101,13 +101,10 @@ def add_dist_metros(movements_df, id_map):
     return output_movements_df
 
 
-def obtener_velocidades(ruta_movements, ruta_stations):
-    
-    spark = SparkSession.builder.appName("mapaBicimad").getOrCreate()
-    spark.sparkContext.setLogLevel("ERROR")
+def obtener_velocidades(ruta_movements, ruta_stations, spark_session):
 
-    stations_df = spark.read.json(ruta_stations)
-    movements_df = spark.read.json(ruta_movements)
+    stations_df = spark_session.read.json(ruta_stations)
+    movements_df = spark_session.read.json(ruta_movements)
 
     id_map = get_id_map(stations_df)
 
