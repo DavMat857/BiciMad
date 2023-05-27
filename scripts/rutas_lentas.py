@@ -1,10 +1,10 @@
-import pandas as pd
-import ast
-
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import udf, col
+from pyspark.sql import functions as F
+from pyspark.sql import types as T
 
 from math import radians, cos, sqrt
+import ast
+
 
 def flat_distance(p_d, q_d):
     # Conversión de coordenadas de grados a radianes
@@ -26,67 +26,112 @@ def flat_distance(p_d, q_d):
 
     return distance
 
-def get_distance(movement):
-    plug = movement["lat_lon_plug"]
-    unplug = movement["lat_lon_unplug"]
-    if plug and unplug:
-        plug = ast.literal_eval(plug)
-        unplug = ast.literal_eval(unplug)
-        distance = flat_distance(plug, unplug)
+def get_distance(plug, unplug):
+    plug_tuple = ast.literal_eval(plug)
+    unplug_tuple = ast.literal_eval(unplug)
+    if None in plug_tuple or None in unplug_tuple:
+        return None
+    else:
+        distance = flat_distance(plug_tuple, unplug_tuple)
         if distance < 500:
             return 0.0
         return distance
-    else:
+
+
+def get_route_str(dist_metros, idplug, idunplug):
+    if dist_metros == 0.0:
         return None
-    
-def get_route_str(row):
-    if row["dist_metros"] == 0.0:
-        return None
     else:
-        origen = row["idplug_station"]
-        destino = row["idunplug_station"]
-        route_str = str(sorted([origen, destino]))
+        route_str = "-".join([str(id) for id in sorted([idplug, idunplug])])
         return route_str
 
-def obtener_velocidades(ruta_mov, ruta_sta):
+
+def get_id_map(stations_df):
+
+    # Definir una función que transforma una lista de filas en un diccionario
+    fix_name = lambda name: name.replace("'", "")
+    def rows_to_dict(rows):
+        row_info = {}
+
+        for row in rows:
+            
+            try:
+                latitude = float(row.latitude)
+                longitude = float(row.longitude)
+
+            except ValueError:
+                latitude = None
+                longitude = None
+
+            row_info[row.id] = {"'lat_long'": f"'({latitude}, {longitude})'", "'name'": f"'{fix_name(row.name)}'"}
+
+        return row_info
+
+    # Convertir la función en una UDF
+    rows_to_dict_udf = F.udf(rows_to_dict, T.MapType(T.StringType(), T.StringType()))
+
+    # Aplicar la UDF a la columna 'stations'
+    stations_df_mod = stations_df.withColumn("stations", rows_to_dict_udf(F.col("stations")))
+
+    # Obtenemos la información necesario mediante un explode
+    id_map = stations_df_mod.select(F.explode("stations")).groupBy("key").agg(F.first("value").alias("value")).collect()
+
+    # Convertimos los resultados a un diccionario de Python
+    id_map = {ast.literal_eval(row['key']): ast.literal_eval(row['value'].replace("=", ":")) for row in id_map}
+
+    return id_map
+
+
+def add_dist_metros(movements_df, id_map):
+
+    # Registramos la función como una función definida por el usuario (UDF) en PySpark
+    get_distance_udf = F.udf(get_distance)
+
+    # Seleccionamos las columnas que nos interesan
+    output_movements_df = movements_df.select(["_id", "idplug_station", "idunplug_station", "travel_time"])
+
+    # Creamos una nueva columna "lat_lon_plug" y "lat_lon_unplug"
+    get_lat_long = F.udf(lambda id: id_map.get(id, {}).get("lat_long", "(None, None)"))
+    output_movements_df = output_movements_df.withColumn("lat_lon_plug", get_lat_long(F.col("idplug_station")))
+    output_movements_df = output_movements_df.withColumn("lat_lon_unplug", get_lat_long(F.col("idunplug_station")))
+
+    # Creamos una nueva columna "dist_metros" aplicando la UDF get_distance_udf
+    output_movements_df = output_movements_df.withColumn("dist_metros", get_distance_udf(F.col("lat_lon_plug"), F.col("lat_lon_unplug")))
+
+    return output_movements_df
+
+
+def obtener_velocidades(ruta_movements, ruta_stations):
+    
     spark = SparkSession.builder.appName("mapaBicimad").getOrCreate()
     spark.sparkContext.setLogLevel("ERROR")
 
-    mov_df = spark.read.json(r"D:\Documentos\bicimad-backup\datos\movimientos\202012_movements.json")
-    sta_df = spark.read.json(r"D:\Documentos\bicimad-backup\datos\estaciones\202012_stations.json")
+    stations_df = spark.read.json(ruta_stations)
+    movements_df = spark.read.json(ruta_movements)
 
-    mov_pdf = mov_df.toPandas()
-    mov_pdf = mov_pdf[["_id", "idplug_station", "idunplug_station", "travel_time", "unplug_hourTime"]]
+    id_map = get_id_map(stations_df)
 
-    # Definir una función que transforma una lista de filas en un diccionario
-    def rows_to_dict(rows):
-        return {row.id: f"'({row.latitude}, {row.longitude})'" for row in rows}
-
-    # Convertir la función en una UDF
-    rows_to_dict_udf = udf(rows_to_dict)
-
-    # Aplicar la UDF a la columna 'stations'
-    sta_df_m = sta_df.withColumn("stations", rows_to_dict_udf(col("stations")))
-    sta_pdf_m = sta_df_m.toPandas()
-    sta_pdf_m["stations"] = sta_pdf_m["stations"].apply(lambda d: ast.literal_eval(d.replace("=", ":")))
-    id_map = {}
-    for d in sta_pdf_m["stations"]:
-        id_map.update(d)
-
+    movements_df = add_dist_metros(movements_df, id_map)
     
-    mov_pdf["lat_lon_plug"] = mov_pdf["idplug_station"].apply(lambda id: id_map.get(id))
-    mov_pdf["lat_lon_unplug"] = mov_pdf["idunplug_station"].apply(lambda id: id_map.get(id))
+    # Creamos una nueva columna "velocidad_m_s" dividiendo "dist_metros" por "travel_time"
+    movements_df = movements_df.withColumn("velocidad_m_s", F.col("dist_metros") / F.col("travel_time"))
 
-    mov_pdf["dist_metros"] = mov_pdf.apply(get_distance, axis=1)
-    mov_pdf["velocidad_m_s"] = mov_pdf["dist_metros"] / mov_pdf["travel_time"]
+    # Creamos una nueva columna "ruta" aplicando la UDF get_route_str
+    get_route_str_udf = F.udf(get_route_str)
+    movements_df = movements_df.withColumn("ruta", get_route_str_udf(F.col("dist_metros"), F.col("idplug_station"), F.col("idunplug_station")))
 
-    mov_pdf["route"] = mov_pdf.apply(get_route_str , axis=1)
+    # Filtrar los valores None en la columna "precio"
+    movements_df_nonull = movements_df.filter(movements_df.velocidad_m_s.isNotNull())
+    movements_df_filtrado = movements_df_nonull.filter(F.col("velocidad_m_s") > 0.0)
 
-    results = mov_pdf.dropna(subset="route").groupby("route").agg({'velocidad_m_s': ['mean', 'count']}).reset_index()
+    # Agrupar por "id" y calcular la media y el conteo
+    results = movements_df_filtrado.groupBy("ruta").agg(F.mean('velocidad_m_s').alias('mean'), F.count('velocidad_m_s').alias('count'))
 
+    # Filtramos los resultados donde el conteo es mayor que min_count
     min_count = 50
-    results = results[results["velocidad_m_s"]["count"] > min_count]
+    results_filtrado = results.filter(F.col("count") > min_count)
 
-    results_for_plot = dict(zip(results["route"].tolist(), results["velocidad_m_s"]["mean"].tolist()))
+    # Creamos un diccionario para el gráfico
+    results_dict = {row['ruta']: row['mean'] for row in results_filtrado.collect()}
 
-    return results_for_plot, id_map
+    return results_dict
