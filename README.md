@@ -28,11 +28,11 @@ Para comprobar que las ejecuciones de los distintos programas funcionan correcta
 
 <br>
 
-## previo.ipynb
+## leyenda.pdf
 
 Contiene informacíón acerca de los archivos y operaciones básicas con las que vamos a trabajar.
 
-## situaciones_estaciones.ipynb
+## summary.ipynb
 
 <br>
 
