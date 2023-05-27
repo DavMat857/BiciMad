@@ -5,7 +5,7 @@ from pyspark.sql import types as T
 from math import radians, cos, sqrt
 import ast
 
-
+# Función para calcular la distancia entre dos puntos en la superficie de la Tierra
 def flat_distance(p_d, q_d):
     # Conversión de coordenadas de grados a radianes
     p = tuple(map(radians, p_d))
@@ -26,6 +26,7 @@ def flat_distance(p_d, q_d):
 
     return distance
 
+# Función para obtener la distancia entre dos puntos
 def get_distance(plug, unplug):
     plug_tuple = ast.literal_eval(plug)
     unplug_tuple = ast.literal_eval(unplug)
@@ -37,7 +38,7 @@ def get_distance(plug, unplug):
             return 0.0
         return distance
 
-
+# Función para obtener una cadena de ruta
 def get_route_str(dist_metros, idplug, idunplug):
     if dist_metros == 0.0:
         return None
@@ -45,20 +46,17 @@ def get_route_str(dist_metros, idplug, idunplug):
         route_str = "-".join([str(id) for id in sorted([idplug, idunplug])])
         return route_str
 
-
+# Función para obtener un mapa de identificadores
 def get_id_map(stations_df):
-
     # Definir una función que transforma una lista de filas en un diccionario
     fix_name = lambda name: name.replace("'", "")
     def rows_to_dict(rows):
         row_info = {}
 
         for row in rows:
-            
             try:
                 latitude = float(row.latitude)
                 longitude = float(row.longitude)
-
             except ValueError:
                 latitude = None
                 longitude = None
@@ -81,9 +79,8 @@ def get_id_map(stations_df):
 
     return id_map
 
-
+# Función para agregar la columna de distancia en metros
 def add_dist_metros(movements_df, id_map):
-
     # Registramos la función como una función definida por el usuario (UDF) en PySpark
     get_distance_udf = F.udf(get_distance)
 
@@ -100,14 +97,17 @@ def add_dist_metros(movements_df, id_map):
 
     return output_movements_df
 
-
+# Función principal para obtener las velocidades de las rutas
 def obtener_velocidades(ruta_movements, ruta_stations, spark_session):
 
+    # Leemos los datos de las estaciones y los movimientos
     stations_df = spark_session.read.json(ruta_stations)
     movements_df = spark_session.read.json(ruta_movements)
 
+    # Obtenemos el mapa de identificadores
     id_map = get_id_map(stations_df)
 
+    # Agregamos la columna de distancia en metros
     movements_df = add_dist_metros(movements_df, id_map)
     
     # Creamos una nueva columna "velocidad_m_s" dividiendo "dist_metros" por "travel_time"
