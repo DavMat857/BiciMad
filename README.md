@@ -68,6 +68,3 @@ Este archivo lee una serie de base de datos en las que se encuentre el dato `age
 
 Así, cuando ya tenemos recogidos todos los datos, contamos la cantidad de veces que aparece cada dato usando la función `countByValue()` y, seguidamente, se representan los datos mediante un diagrama de sectores (también damos opción a devolver un gráfico de barras, pero es más visual el gráfico de sectores). El gráfico, finalmente, se guardará en la carpeta desde la que se esté ejecutando el archivo.
 
-## Obtener_datos_situaciones
-
-Nos ofrece las funciones con los datos a utilizar para los siguientes programas 
