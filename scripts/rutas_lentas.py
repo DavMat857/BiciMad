@@ -127,7 +127,7 @@ def plot_results(rutas_lentas, ruta_resultados, fecha):
     # Etiquetas y título
     plt.xlabel('Velocidad Media (m/s)')
     plt.ylabel('Rutas')
-    plt.title(f'Rutas más rentas {fecha}')
+    plt.title(f'Rutas más lentas {fecha}')
     plt.gca().invert_yaxis()
 
     plt.savefig(ruta_resultados, bbox_inches='tight')
