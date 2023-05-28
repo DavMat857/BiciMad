@@ -2,11 +2,10 @@ from pyspark.sql.functions import sum
 from pyspark.sql import functions as F
 from pyspark.sql import types as T
 
-import matplotlib.pyplot as plt
-import numpy as np
-import ast
 
+import ast
 from math import radians, cos, sqrt
+
 # Función para calcular la distancia entre dos puntos en la superficie de la Tierra
 def flat_distance(p_d, q_d):
     # Conversión de coordenadas de grados a radianes
@@ -118,3 +117,29 @@ def distancia_recorrida(ruta_movements, ruta_stations, spark_session):
 
     
     return total_distancia
+
+
+if __name__ == '__main__':
+    from pyspark.sql import SparkSession
+    import sys
+
+    spark_session = SparkSession.builder.appName("distancia_recorrida").getOrCreate()
+    spark_session.sparkContext.setLogLevel("ERROR")
+
+    argv = sys.argv
+
+    if len(argv) < 2:
+        
+        print("Uso: python3 rutas_lentas.py <ruta_movements> <ruta_stations> ")
+
+        # Valores por defecto
+        ruta_movements = r"datos/movements/202012_movements.json"
+        ruta_stations = r"datos/stations/202012_stations.json"
+        
+    
+    else:
+        ruta_movements = argv[0]
+        ruta_stations = argv[1]
+        
+
+    distancia_recorrida(ruta_movements, ruta_stations,spark_session)
