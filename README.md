@@ -86,6 +86,12 @@ Por defecto, si no se indican las rutas mencionadas, se tomarán las siguientes 
 * Ruta datos de estaciones: ``datos/stations/202012_stations.json``
 * Ruta resultados: ``resultados/rutas_lentas.png``
 
+También está la posibilidad de importar la función ``obtener_velocidades``y hacer la llamada (junto con una SparkSession) con los parámetros que se indiquen. De esta forma, además, se podrá indicar el número de trayectorias que debe de haber en una ruta y el número de estación lentas que se quiera ver:
+
+```
+obtener_velocidades(ruta_movements, ruta_stations, ruta_resultados, spark_session, min_count=50, top_n=10)
+```
+
 <br>
 
 ### Estudio 4: (DAVID)
