@@ -94,7 +94,7 @@ obtener_velocidades(ruta_movements, ruta_stations, ruta_resultados, spark_sessio
 
 <br>
 
-### Estudio 4: (DAVID)
+### Estudio 4: Contaminación
 
 Script - `contaminación.py`
 
