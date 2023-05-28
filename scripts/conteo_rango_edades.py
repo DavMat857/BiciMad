@@ -93,8 +93,6 @@ def main2(sc, files):
     media = round(suma / num_viajes, 3)
     print("La media de duración de los viajes (redondeada a 3 decimales) es: " + str(media) + " segundos.")
 
-
-
 if __name__ == "__main__": #admite todas las bases de datos que le queramos introducir, no solamente 1
     long = len(sys.argv)
     if long == 1 or long == 2:
@@ -104,5 +102,8 @@ if __name__ == "__main__": #admite todas las bases de datos que le queramos intr
         with SparkContext(conf=conf) as sc:
             ruta = sys.argv[1]
             sc.setLogLevel("ERROR")
-            lst = [ruta + "/" + sys.argv[i] for i in range(2,long)] #lista con la dirección de cada archivo
+            if ruta != "actual":
+                lst = [ruta + "/" + sys.argv[i] for i in range(2,long)] #lista con la dirección de cada archivo
+            else:
+                lst = [sys.argv[i] for i in range(2,long)]
             main2(sc, lst)
