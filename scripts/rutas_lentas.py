@@ -114,7 +114,7 @@ def map_ruta(ruta, id_map):
 
 
 # Mostrar resultados del diccionario
-def plot_results(rutas_lentas, ruta_resultados):
+def plot_results(rutas_lentas, ruta_resultados, fecha):
     # Ahora vamos a mostrar los resultados
     keys = list(rutas_lentas.keys())
     values = list(rutas_lentas.values())
@@ -127,16 +127,23 @@ def plot_results(rutas_lentas, ruta_resultados):
     # Etiquetas y título
     plt.xlabel('Velocidad Media (m/s)')
     plt.ylabel('Rutas')
-    plt.title('Rutas más rentas')
+    plt.title(f'Rutas más rentas {fecha}')
     plt.gca().invert_yaxis()
 
     plt.savefig(ruta_resultados, bbox_inches='tight')
     print(f"El gráfico se ha guardado correctamente en la siguiente ruta: {ruta_resultados}")
 
 
-
 # Función principal para obtener las velocidades de las rutas
 def obtener_velocidades(ruta_movements, ruta_stations, ruta_resultados, spark_session, min_count=50, top_n=10):
+    # Obtenemos la fecha de los datos
+    fecha_movements = ''.join(c for c in ruta_movements if c.isdigit())
+    fecha_stations = ''.join(c for c in ruta_stations if c.isdigit())
+    if fecha_stations == fecha_movements:
+        fecha = f"{fecha_movements[:4]}/{fecha_movements[4:]}"
+        print(f"Trabajaremos con los datos de {fecha}")
+    else:
+        print("AVISO: Las fechas de los datos proporcionados no coinciden, puede causar problemas")
 
     # Leemos los datos de las estaciones y los movimientos
     stations_df = spark_session.read.json(ruta_stations)
@@ -169,20 +176,30 @@ def obtener_velocidades(ruta_movements, ruta_stations, ruta_resultados, spark_se
     rutas_lentas = {map_ruta(row['ruta'], id_map): row['mean'] for row in results_orden.limit(top_n).collect()}
 
     # Ahora vamos a mostrar los resultados obtenidos
-    plot_results(rutas_lentas, ruta_resultados)
+    plot_results(rutas_lentas, ruta_resultados, fecha)
 
 
 if __name__ == '__main__':
     from pyspark.sql import SparkSession
+    import sys
 
-    spark_session = SparkSession.builder.appName("RutasLentas").config("spark.executor.memory", "8g").getOrCreate()
+    spark_session = SparkSession.builder.appName("RutasLentas").getOrCreate()
     spark_session.sparkContext.setLogLevel("ERROR")
 
-    # Elegimos el mes que vamos a analizar
-    ruta_movements = r"datos\movements\202012_movements.json"
-    ruta_stations = r"datos\stations\202012_stations.json"
+    argv = sys.argv
 
-    # Ruta donde vamos a guardar los resultados
-    ruta_resultados = r"resultados\rutas_lentas.png"
+    if len(argv) < 3:
+        
+        print("Uso: python3 rutas_lentas.py <ruta_movements> <ruta_stations> <ruta_resultados>")
+
+        # Valores por defecto
+        ruta_movements = r"datos\movements\202012_movements.json"
+        ruta_stations = r"datos\stations\202012_stations.json"
+        ruta_resultados = r"resultados\rutas_lentas.png"
+    
+    else:
+        ruta_movements = argv[1]
+        ruta_stations = argv[2]
+        ruta_resultados = argv[3]
 
     obtener_velocidades(ruta_movements, ruta_stations, ruta_resultados, spark_session, min_count=50, top_n=10)
