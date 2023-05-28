@@ -105,20 +105,21 @@ obtener_velocidades(ruta_movements, ruta_stations, ruta_resultados, spark_sessio
 
 Script - `contaminación.py`
 
-Este script calcula la cantidad de kilómetros realizados por los usuarios de BiciMad, posteriormente determina dentro del notebook summary, como calcularíamos la cantidad de CO2 no emitido.
+Este script calcula la cantidad de CO2 que no se emite en relación la cantidad de kilómetros realizados por los usuarios de BiciMad.
 
 Para ejecutar el script, es necesario proporcionar:
 * Ruta al archivo JSON con datos de las estaciones. En la ruta ``datos/stations/`` se pueden encontrar datos de prueba en el formato ``AAAAMM_stations.json``.
 * Ruta al archivo JSON con datos de los movimientos. En la ruta ``datos/movements/`` se pueden encontrar datos de prueba en el formato ``AAAAMM_movements.json``.
+* Diccionario que tome como clave el combustible utilizado y como valores una lista que contengas litro_gasolina por 100km, porcentaje en tanto por 1 de la cantidad de vehículos asociados a ese combustible y la cantidad de CO2 por litro de combustible.
 
 ```
-python3 contaminacion.py <datos_movimientos> <datos_estaciones> 
+python3 contaminacion.py <datos_movimientos> <datos_estaciones> <diccionario_combustibles>
 ```
 
-También está la posibilidad de importar la función ``distancia_recorrida`` y hacer la llamada (junto con una SparkSession) con los parámetros que se indiquen. 
+También está la posibilidad de importar la función ``co2`` y hacer la llamada (junto con una SparkSession) con los parámetros que se indiquen. 
 
 ```
-distancia_recorrida(ruta_movements, ruta_stations, spark_session)
+co2(ruta_movements, ruta_stations,diccionario_combustibles ,spark_session)
 ```
 <br>
 
@@ -139,6 +140,10 @@ Este archivo muestra el resultado obtenido al ejecutar el archivo `mapa_dia.py` 
 ### rutas_lentas.png
 
 Gráfica mostrando las rutas más lentas detectadas en el mes de la última ejecución del estudio de Rutas Lentas. En este grafico podemos observar, ordenadas de más lentas a menos, las rutas (indicadas con los nombre de las entaciones) más lentas junto a su velocidad media.
+
+### contaminación
+
+Muestra por pantalla la cantidad de CO2 que no hemos emitido
 
 <br>
 
