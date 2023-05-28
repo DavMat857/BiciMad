@@ -193,9 +193,9 @@ if __name__ == '__main__':
         print("Uso: python3 rutas_lentas.py <ruta_movements> <ruta_stations> <ruta_resultados>")
 
         # Valores por defecto
-        ruta_movements = r"datos\movements\202012_movements.json"
-        ruta_stations = r"datos\stations\202012_stations.json"
-        ruta_resultados = r"resultados\rutas_lentas.png"
+        ruta_movements = "datos/movements/202012_movements.json"
+        ruta_stations = "datos/stations/202012_stations.json"
+        ruta_resultados = "resultados/rutas_lentas.png"
     
     else:
         ruta_movements = argv[1]

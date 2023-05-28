@@ -133,8 +133,8 @@ if __name__ == '__main__':
         print("Uso: python3 rutas_lentas.py <ruta_movements> <ruta_stations> ")
 
         # Valores por defecto
-        ruta_movements = r"datos/movements/202012_movements.json"
-        ruta_stations = r"datos/stations/202012_stations.json"
+        ruta_movements = "datos/movements/202012_movements.json"
+        ruta_stations = "datos/stations/202012_stations.json"
     
     else:
         ruta_movements = argv[0]
