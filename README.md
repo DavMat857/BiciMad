@@ -26,8 +26,8 @@ En el repositorio también se pueden encontrar los datos usados (en la carpeta `
 
 Para realizar los distintos estudios se han utilizado los datos de la página web oficial de [BiciMad](https://opendata.emtmadrid.es/Datos-estaticos/Datos-generales-(1)). Estos datos se pueden encontrar dividos por tipo: 
 
-* Movimiento (``datos\movements``): Información sobre el uso de las bicicletas por parte del usuario final
-* Estaciones (``datos\stations``): Información de la situación de las estaciones). 
+* Movimiento (``datos/movements/``): Información sobre el uso de las bicicletas por parte del usuario final
+* Estaciones (``datos/stations/``): Información de la situación de las estaciones). 
 
 Se encuentran disponibles los datos desde Junio hasta Diciembre del 2020. Para más información sobre los datos, se puede consultar el archivo `leyenda.pdf`. Este contiene información acerca del formato de los datos y la información que podemos encontrar en ellos.
 
