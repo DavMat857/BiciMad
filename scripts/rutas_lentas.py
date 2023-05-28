@@ -116,21 +116,17 @@ def obtener_velocidades(ruta_movements, ruta_stations, spark_session):
     get_route_str_udf = F.udf(get_route_str)
     movements_df = movements_df.withColumn("ruta", get_route_str_udf(F.col("dist_metros"), F.col("idplug_station"), F.col("idunplug_station")))
 
-    # Filtrar los valores None en la columna "precio"
-    movements_df = movements_df.filter(movements_df.velocidad_m_s.isNotNull())
-    movements_df = movements_df.filter(F.col("velocidad_m_s") > 0.0)
-
     # Agrupar por "id" y calcular la media y el conteo
     results = movements_df.groupBy("ruta").agg(F.mean('velocidad_m_s').alias('mean'), F.count('velocidad_m_s').alias('count'))
 
-    # Filtramos los resultados donde el conteo es mayor que min_count
+    # Filtramos los resultados donde el conteo es mayor que min_count y media no nula
     min_count = 50
     results = results.filter(F.col("count") > min_count)
+    results = results.filter(F.col("mean") > 0.0)
 
-    top_results = results.orderBy(F.col("mean").desc()).limit(10)
-
-    # Creamos un diccionario para el gráfico
-    # results_dict = {row['ruta']: row['mean'] for row in top_results.collect()}
+    # Seleccionamos las n rutas las lentas del mes
+    n = 10
+    top_results = {row['ruta']: row['mean'] for row in results.orderBy(F.col("mean").desc()).limit(n).collect()}
 
     return top_results
 
