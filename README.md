@@ -13,7 +13,7 @@ Este documento explica la estructura del repositorio y las instrucciones de uso 
 <br>
 
 Problemas a solucionar y datos a analizar de BiciMad:
-* ALVARO
+* Analizar el tipo de usuario que mas utiliza el sistema de BICIMAD, así como el tiempo medio del viaje. Los resultados obtenidos se verán en un par de gráficas al finalizar su ejecución.
 * Obtener las rutas y estaciones más transitadas de la ciudad para un día concreto partiendo de los datos recopilados del mes específico. Los resultados obtenidos se visualizan con la creación de un mapa interactivo.
 * Calcular la velocidad media las distintas rutas. Para identificar tramos lentos, indicando posibles problemas y carencias en la infraestructura de la ciudad: Falta de carriles bici, malas condiciones de la vía, etc.
 * Realizar un cálculo de la cantidad de CO2 que no se ha generado gracias a BiciMad. Para ello calculamos la cantidad de kilómetros realizados por los usuarios
