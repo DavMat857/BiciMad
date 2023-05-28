@@ -79,7 +79,7 @@ que script es, breve descripción, como se usa
 
 ### mapa_2020-12-01.html
 
-Este archivo muestra el resultado obtenido al ejecutar el archivo `mapa_dia.py` con la información correspondiente al mes de julio de 2020, más específicamente, sobre el día `2020-12-01` (`YYYY-MM-DD`).
+Este archivo muestra el resultado obtenido al ejecutar el archivo `mapa_dia.py` con la información correspondiente al mes de diciembre de 2020, más específicamente, sobre el día `2020-12-01` (`YYYY-MM-DD`) que son los valores de entrada seleccionados de forma predeterminada para comprobar el buen funcionamiento de nuestro programa.
 
 ### AZIZ
 
