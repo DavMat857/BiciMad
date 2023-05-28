@@ -108,7 +108,9 @@ que script es, breve descripción, como se usa
 
 Este archivo muestra el resultado obtenido al ejecutar el archivo `mapa_dia.py` con la información correspondiente al mes de diciembre de 2020, más específicamente, sobre el día `2020-12-01` (`YYYY-MM-DD`) que son los valores de entrada seleccionados de forma predeterminada para comprobar el buen funcionamiento de nuestro programa.
 
-### AZIZ
+### rutas_lentas.png
+
+Gráfica mostrando las rutas más lentas detectadas en el mes de la última ejecución del estudio de Rutas Lentas. En este grafico podemos observar, ordenadas de más lentas a menos, las rutas (indicadas con los nombre de las entaciones) más lentas junto a su velocidad media.
 
 ### DAVID
 
