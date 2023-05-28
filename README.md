@@ -81,7 +81,7 @@ Para ejecutar el script, es necesario proporcionar:
 * Ruta para guardar el gráfico de resultados.
 
 ```
-python rutas_lentas.py <datos_movimientos> <datos_estaciones> <resultado>
+python3 rutas_lentas.py <datos_movimientos> <datos_estaciones> <resultado>
 ```
 
 Por defecto, si no se indican las rutas mencionadas, se tomarán las siguientes (donde se analizan los datos de Diciembre de 2020):
@@ -109,7 +109,7 @@ Para ejecutar el script, es necesario proporcionar:
 * Ruta al archivo JSON con datos de los movimientos. En la ruta ``datos\movements\`` se pueden encontrar datos de prueba en el formato ``AAAAMM_movements.json``.
 
 ```
-python contaminacion.py <datos_movimientos> <datos_estaciones> 
+python3 contaminacion.py <datos_movimientos> <datos_estaciones> 
 ```
 
 También está la posibilidad de importar la función ``distancia_recorrida`` y hacer la llamada (junto con una SparkSession) con los parámetros que se indiquen. 
