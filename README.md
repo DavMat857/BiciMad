@@ -43,7 +43,9 @@ Este archivo lee una serie de base de datos en las que se encuentren los datos `
 
 Aunque en el Notebook `summary.ipynb` solamente se ejecute este archivo con la base de datos `202012_movements.json`, también admite una ejecución con varias bases de datos. Ponemos un ejemplo de ejecucion del script con 3 bases de datos:
 
-`python3 conteo_rango_edades.py datos/movements 202012_movements.json 202011_movements.json 202010_movements.json`
+```
+python3 conteo_rango_edades.py datos/movements 202012_movements.json 202011_movements.json 202010_movements.json
+```
 
 Nota a tener en cuenta: al ejecutar este script, hay que pasarle la ruta en la que se encuentran los archivos. Esta ruta debe de ser común a todas las bases de datos. Es decir, todas las bases de datos se deben de encontrar en la misma carpeta. Si el archivo se ejecutra en la carpeta donde se encuentran todas las bases de datos, escribir `actual` para que el archivo pueda detectarlo.
 
@@ -59,8 +61,9 @@ Este programa ejecuta una aplicación de nombre `mapaBicimad` que lee dos archiv
 
 <br>
 
-`python3 mapa_dia.py 202012_movements.json 202012_stations.json 2020-12-01 mapa_2020-12-01.html`
-
+```
+python3 mapa_dia.py 202012_movements.json 202012_stations.json 2020-12-01 mapa_2020-12-01.html
+```
 <br>
 
 El programa guarda las posiciones y los identificadores de las estaciones activas, y hace lo propio con las variables `idplug_station` (estación de enganche) e `idunplug_station` (estación de desenganche) del fichero que guarda los movimientos de usuarios. Con esta información se evalúa cuáles han sido las estaciones más concurridas a lo largo del día introducido, y utilizando la librería de visualización geoespacial `folium` presentamos esta información en un mapa de forma que se pueda acceder a la información de enganches y desenganches de todas las estaciones, así como proporcionar una representación que permita conocer las estaciones y rutas de mayor interés. 
