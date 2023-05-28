@@ -16,7 +16,7 @@ Problemas a solucionar y datos a analizar de BiciMad:
 * ALVARO
 * Obtener las rutas y estaciones más transitadas de la ciudad para un día concreto partiendo de los datos recopilados del mes específico. Los resultados obtenidos se visualizan con la creación de un mapa interactivo.
 * Calcular la velocidad media las distintas rutas. Para identificar tramos lentos, indicando posibles problemas y carencias en la infraestructura de la ciudad: Falta de carriles bici, malas condiciones de la vía, etc.
-* DAVID
+* Realizar un cálculo de la cantidad de CO2 que no se ha generado gracias a BiciMad. Para ello calculamos la cantidad de kilómetros realizados por los usuarios
 
 En el repositorio también se pueden encontrar los datos usados (en la carpeta ``/datos``), los scripts para obtener resultados (en la carpeta ``/scripts``) y los resultados (en la carpeta ``/resultados``). También se encuenta el Notebook ``previos.ipynb``, en que se han realizado pruebas para entender los datos de entrada. Este último Notebook no es de interés para la presentación de los estudios, simplemente ha servido para un primer contacto con los datos. 
 
@@ -96,8 +96,23 @@ obtener_velocidades(ruta_movements, ruta_stations, ruta_resultados, spark_sessio
 
 ### Estudio 4: (DAVID)
 
-que script es, breve descripción, como se usa
+Script - `contaminación.py`
 
+Este script calcula la cantidad de kilómetros realizados por los usuarios de BiciMad, posteriormente determina dentro del notebook summary, como calcularíamos la cantidad de CO2 no emitido.
+
+Para ejecutar el script, es necesario proporcionar:
+* Ruta al archivo JSON con datos de las estaciones. En la ruta ``datos\stations\`` se pueden encontrar datos de prueba en el formato ``AAAAMM_stations.json``.
+* Ruta al archivo JSON con datos de los movimientos. En la ruta ``datos\movements\`` se pueden encontrar datos de prueba en el formato ``AAAAMM_movements.json``.
+
+```
+python contaminacion.py <datos_movimientos> <datos_estaciones> 
+```
+
+También está la posibilidad de importar la función ``distancia_recorrida``y hacer la llamada (junto con una SparkSession) con los parámetros que se indiquen. 
+
+```
+distancia_recorrida(ruta_movements, ruta_stations, spark_session)
+```
 <br>
 
 ## Resultados
@@ -112,7 +127,8 @@ Este archivo muestra el resultado obtenido al ejecutar el archivo `mapa_dia.py` 
 
 Gráfica mostrando las rutas más lentas detectadas en el mes de la última ejecución del estudio de Rutas Lentas. En este grafico podemos observar, ordenadas de más lentas a menos, las rutas (indicadas con los nombre de las entaciones) más lentas junto a su velocidad media.
 
-### DAVID
+### Cantidad de kilómetros
+Se muestra por pantalla al ejecutar el archivo
 
 <br>
 
