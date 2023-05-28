@@ -8,22 +8,17 @@ Trabajo realizado por el grupo de los siguientes integrantes:
 
 <br>
 
-CAMBIAR, NO ESTA ACTUALIZADO ----> Problemas a solucionar y datos a analizar de BiciMad:
-* Mapa de calor
-* Cliente objetivo:
-	Obtendremos información acerca del cliente objetivo, en función de este dato
-	podremos buscar estrategias para llegar a otros públicos.
-* Mejora medioambiental existente gracias al producto.
-	1)Creamos tuplas destino-origen
-	2)Calculamos las distancias
-	3)Creamos función del %gasolina, %diesel, ...
-	calculamos los km que hace BiciMad y añadimos CO2 ahorrado
-* Media km por grupo de edad.
-* Calcular la velocidad media las distintas rutas. Para identificar tramos lentos, indicando posibles problemas y carencias en la infraestructura de la ciudad: Falta de carriles bici, malas condiciones de la via, etc.
+Este documento explica la estructura del repositorio y las instrucciones de uso de las distintas herramientas proporcionadas (estudios). La documentación con la información de los estudios realizados, resultados, conclusiones y propuesta de soluciones se encuentra en el Notebook ``summary.ipynb``.
 
-Para poder probar las distintas funciones, observar algunos resultados de los estudios y ver ejemplos de cómo ejecutar los distintos programas se recomienda seguir el Notebook resumen: ``summary.ipynb``.
+<br>
 
-En el repositorio también se pueden encontrar los datos usados (en la carpeta ``/datos``), los scripts para obtener resultados (en la carpeta ``/scripts``) y los resultados (en la carpeta ``\resultados``). También se encuenta el Notebook ``previos.ipynb``, en que se han realizado pruebas para entender los datos de entrada.  
+Problemas a solucionar y datos a analizar de BiciMad:
+* ALVARO
+* Obtener las rutas y estaciones más transitadas de la ciudad para un día concreto partiendo de los datos recopilados del mes específico. Los resultados obtenidos se visualizan con la creación de un mapa interactivo.
+* Calcular la velocidad media las distintas rutas. Para identificar tramos lentos, indicando posibles problemas y carencias en la infraestructura de la ciudad: Falta de carriles bici, malas condiciones de la vía, etc.
+* DAVID
+
+En el repositorio también se pueden encontrar los datos usados (en la carpeta ``/datos``), los scripts para obtener resultados (en la carpeta ``/scripts``) y los resultados (en la carpeta ``/resultados``). También se encuenta el Notebook ``previos.ipynb``, en que se han realizado pruebas para entender los datos de entrada. Este último Notebook no es de interés para la presentación de los estudios, simplemente ha servido para un primer contacto con los datos. 
 
 <br>
 
@@ -31,8 +26,8 @@ En el repositorio también se pueden encontrar los datos usados (en la carpeta `
 
 Para realizar los distintos estudios se han utilizado los datos de la página web oficial de [BiciMad](https://opendata.emtmadrid.es/Datos-estaticos/Datos-generales-(1)). Estos datos se pueden encontrar dividos por tipo: 
 
-* Movimiento (``datos\movements``): Información sobre el uso de las bicicletas por parte del usuario final)
-* Estaciones (``datos\stations``): Información de la situación de las estaciones). 
+* Movimiento (``datos/movements/``): Información sobre el uso de las bicicletas por parte del usuario final
+* Estaciones (``datos/stations/``): Información de la situación de las estaciones). 
 
 Se encuentran disponibles los datos desde Junio hasta Diciembre del 2020. Para más información sobre los datos, se puede consultar el archivo `leyenda.pdf`. Este contiene información acerca del formato de los datos y la información que podemos encontrar en ellos.
 
@@ -56,19 +51,17 @@ Así, cuando ya tenemos recogidos todos los datos, contamos la cantidad de veces
 
 Script - `mapa_dia.py`
 
-Este programa ejecuta una aplicación de nombre `mapaBicimad` que lee dos archivos en formato JSON que contienen información sobre los movimientos y las situaciones de las estaciones de Bicimad durante un mes. Además, se le debe indicar un día del mes que se quiere estudiar en formato `YYYY-MM-DD` y el archivo HTML en que se guardará la visualización de los datos recopilados. 
+Este programa ejecuta una aplicación de nombre `mapaBicimad` que lee dos archivos en formato JSON que contienen información sobre los movimientos y las situaciones de las estaciones de Bicimad durante un mes específico. Además, se le debe indicar un día del mes que se quiere estudiar en formato `YYYY-MM-DD` y el archivo HTML en que se guardará la visualización de los datos recopilados. Un ejemplo de ejecución es el siguiente:
 
-* Ejemplo de ejecución del programa (suponiendo que los datos están en el mismo directorio):
+<br>
 
 `python3 mapa_dia.py 202012_movements.json 202012_stations.json 2020-12-01 mapa_2020-12-01.html`
 
-Primero, el programa guarda las posiciones (`[longitude, latitude]`) y los identificadores de las estaciones activas para el día específico que se ha introducido como valor de entrada, y hace lo propio con las variables `idplug_station` (estación de enganche) e `idunplug_station` (estación de desenganche) del fichero que guarda los movimientos de los usuarios conectados a la red de Bicimad.
+<br>
 
-Con esta información se evalúa cuáles han sido las estaciones más concurridas a lo largo del día introducido, y utilizando la librería de visualización geoespacial `folium` presentamos esta información en un mapa de forma que se pueda acceder a la información de enganches y desenganches de todas las estaciones, así como proporcionar una representación que (mediante una escala de color) permita conocer cuáles son las estaciones de mayor interés. Es importante remarcar que el formato de los archivos JSON debe ser el que siguen los archivos del año 2020 (véanse `202012_movements.json` y `202012_stations.json` como posibles referencias) de libre acceso en la página web de la EMT de Madrid [https://opendata.emtmadrid.es/Datos-estaticos/Datos-generales](https://opendata.emtmadrid.es/Datos-estaticos/Datos-generales-(1)).
+El programa guarda las posiciones y los identificadores de las estaciones activas, y hace lo propio con las variables `idplug_station` (estación de enganche) e `idunplug_station` (estación de desenganche) del fichero que guarda los movimientos de usuarios. Con esta información se evalúa cuáles han sido las estaciones más concurridas a lo largo del día introducido, y utilizando la librería de visualización geoespacial `folium` presentamos esta información en un mapa de forma que se pueda acceder a la información de enganches y desenganches de todas las estaciones, así como proporcionar una representación que permita conocer las estaciones y rutas de mayor interés. 
 
-Además, se han delineado los trayectos con más apariciones en el conjunto de datos de uso de los cuáles se ha seleccionado `top = 500` para visualizar las 500 rutas más concurridas a lo large de ese día, junto con la información de las estaciones explicada en el párrafo anterior. Si se desea, este valor puede cambiarse dentro del código para reducir o aumentar el número de rutas a considerar.
-
-Por último, se puede importar la función `main(sc, usage_file, stations_file, day, outfile, top)` para usarse directamente desde otro programa. De forma predeterminada, se han seleccionado los valores de la ejecución anterior para que pueda servir como ejemplo (nótese que los archivos `.json` en este caso deberán encontrarse en el mismo directorio que el programa a ejecutar).
+Se puede importar la función `main(sc, usage_file, stations_file, day, outfile, top)` para usarse directamente desde otro programa. De forma predeterminada, se han seleccionado los documentos de diciembre de 2020 y el primer día de dicho mes, para que pueda servir como ejemplo.
 
 <br>
 
@@ -76,7 +69,28 @@ Por último, se puede importar la función `main(sc, usage_file, stations_file, 
 
 Script - `rutas_lentas.py`
 
-que script es, breve descripción, como se usa
+Este script analiza los datos de BiciMad para identificar las rutas más lentas en la red de bicicletas de Madrid. Utiliza los datos de las estaciones y los movimientos de los usuarios para calcular la velocidad media de cada ruta y selecciona las rutas con al menos 50 viajes en un mes determinado.
+
+Para ejecutar el script, es necesario proporcionar:
+* Ruta al archivo JSON con datos de las estaciones. En la ruta ``datos\stations\`` se pueden encontrar datos de prueba en el formato ``AAAAMM_stations.json``.
+* Ruta al archivo JSON con datos de los movimientos. En la ruta ``datos\movements\`` se pueden encontrar datos de prueba en el formato ``AAAAMM_movements.json``.
+* Ruta para guardar el gráfico de resultados.
+
+```
+python rutas_lentas.py <datos_movimientos> <datos_estaciones> <resultado>
+```
+
+Por defecto, si no se indican las rutas mencionadas, se tomarán las siguientes (donde se analizan los datos de Diciembre de 2020):
+
+* Ruta datos de movimientos: ``datos/movements/202012_movements.json`` 
+* Ruta datos de estaciones: ``datos/stations/202012_stations.json``
+* Ruta resultados: ``resultados/rutas_lentas.png``
+
+También está la posibilidad de importar la función ``obtener_velocidades``y hacer la llamada (junto con una SparkSession) con los parámetros que se indiquen. De esta forma, además, se podrá indicar el número de trayectorias que debe de haber en una ruta y el número de estación lentas que se quiera ver:
+
+```
+obtener_velocidades(ruta_movements, ruta_stations, ruta_resultados, spark_session, min_count=50, top_n=10)
+```
 
 <br>
 
@@ -88,15 +102,17 @@ que script es, breve descripción, como se usa
 
 ## Resultados
 
+### ALVARO
+
 ### mapa_2020-12-01.html
 
-Este archivo muestra el resultado obtenido al ejecutar el archivo `mapa_dia.py` con la información correspondiente al mes de julio de 2020, más específicamente, sobre el día `2020-12-01` (`YYYY-MM-DD`).
+Este archivo muestra el resultado obtenido al ejecutar el archivo `mapa_dia.py` con la información correspondiente al mes de diciembre de 2020, más específicamente, sobre el día `2020-12-01` (`YYYY-MM-DD`) que son los valores de entrada seleccionados de forma predeterminada para comprobar el buen funcionamiento de nuestro programa.
 
-### ESTUDIO 1 (ALVARO)
+### rutas_lentas.png
 
-### ESTUDIO 3 (AZIZ)
+Gráfica mostrando las rutas más lentas detectadas en el mes de la última ejecución del estudio de Rutas Lentas. En este grafico podemos observar, ordenadas de más lentas a menos, las rutas (indicadas con los nombre de las entaciones) más lentas junto a su velocidad media.
 
-### ESTUDIO 4 (DAVID)
+### DAVID
 
 <br>
 
