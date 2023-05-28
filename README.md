@@ -76,8 +76,8 @@ Script - `rutas_lentas.py`
 Este script analiza los datos de BiciMad para identificar las rutas más lentas en la red de bicicletas de Madrid. Utiliza los datos de las estaciones y los movimientos de los usuarios para calcular la velocidad media de cada ruta y selecciona las rutas con al menos 50 viajes en un mes determinado.
 
 Para ejecutar el script, es necesario proporcionar:
-* Ruta al archivo JSON con datos de las estaciones. En la ruta ``datos\stations\`` se pueden encontrar datos de prueba en el formato ``AAAAMM_stations.json``.
-* Ruta al archivo JSON con datos de los movimientos. En la ruta ``datos\movements\`` se pueden encontrar datos de prueba en el formato ``AAAAMM_movements.json``.
+* Ruta al archivo JSON con datos de las estaciones. En la ruta ``datos/stations/`` se pueden encontrar datos de prueba en el formato ``AAAAMM_stations.json``.
+* Ruta al archivo JSON con datos de los movimientos. En la ruta ``datos/movements/`` se pueden encontrar datos de prueba en el formato ``AAAAMM_movements.json``.
 * Ruta para guardar el gráfico de resultados.
 
 ```
@@ -105,8 +105,8 @@ Script - `contaminación.py`
 Este script calcula la cantidad de kilómetros realizados por los usuarios de BiciMad, posteriormente determina dentro del notebook summary, como calcularíamos la cantidad de CO2 no emitido.
 
 Para ejecutar el script, es necesario proporcionar:
-* Ruta al archivo JSON con datos de las estaciones. En la ruta ``datos\stations\`` se pueden encontrar datos de prueba en el formato ``AAAAMM_stations.json``.
-* Ruta al archivo JSON con datos de los movimientos. En la ruta ``datos\movements\`` se pueden encontrar datos de prueba en el formato ``AAAAMM_movements.json``.
+* Ruta al archivo JSON con datos de las estaciones. En la ruta ``datos/stations/`` se pueden encontrar datos de prueba en el formato ``AAAAMM_stations.json``.
+* Ruta al archivo JSON con datos de los movimientos. En la ruta ``datos/movements/`` se pueden encontrar datos de prueba en el formato ``AAAAMM_movements.json``.
 
 ```
 python3 contaminacion.py <datos_movimientos> <datos_estaciones> 
