@@ -118,6 +118,16 @@ def distancia_recorrida(ruta_movements, ruta_stations, spark_session):
 
     return total_distancia
 
+def co2(ruta_movements, ruta_stations, spark_session,coches):
+
+    # Distancia total
+    distancia = distancia_recorrida(ruta_movements, ruta_stations, spark_session)
+    # Transformación a kilómetros
+    kilometros = int(distancia // 1000)
+    # Obtención de kg de CO2 ahorrado
+    co2_combustible = ([(((coches[i][1]*kilometros) / 100)*coches[i][0])*coches[i][2] for i in coches.keys()])
+    co2 = sum(co2_combustible)
+    return co2
 
 if __name__ == '__main__':
     from pyspark.sql import SparkSession
@@ -135,9 +145,9 @@ if __name__ == '__main__':
         # Valores por defecto
         ruta_movements = "datos/movements/202012_movements.json"
         ruta_stations = "datos/stations/202012_stations.json"
-    
+        coches = {'Gasolina' : [5, 0.5, 2.34],'Gasóleo': [5, 0.5, 2.64]}
     else:
         ruta_movements = argv[0]
         ruta_stations = argv[1]
 
-    distancia_recorrida(ruta_movements, ruta_stations, spark_session)
+    co2(ruta_movements, ruta_stations, spark_session, coches)
