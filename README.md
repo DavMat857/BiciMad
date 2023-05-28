@@ -39,11 +39,15 @@ Se encuentran disponibles los datos desde Junio hasta Diciembre del 2020. Para m
 
 Script - `conteo_rango_edades.py`
 
-Este archivo lee una serie de base de datos en las que se encuentre el dato `ageRange` (si no se encuentra, se pone un None y filtra luego segun los datos encontrados). Estas bases de datos deben de tener un formato similar al JSON:
+Este archivo lee una serie de base de datos en las que se encuentren los datos `ageRange` y `travel_time` (si no se encuentran, se pone un None y filtra luego segun los datos encontrados). Estas bases de datos deben de tener el mismo formato que tiene el archivo `202012_movements.json`. 
 
-	Son archivos en los cuales cada línea es un archivo JSON (es un diccionario).
+Aunque en el Notebook `summary.ipynb` solamente se ejecute este archivo con la base de datos `202012_movements.json`, también admite una ejecución con varias bases de datos. Ponemos un ejemplo de ejecucion del script con 3 bases de datos:
 
-Así, cuando ya tenemos recogidos todos los datos, contamos la cantidad de veces que aparece cada dato usando la función `countByValue()` y, seguidamente, se representan los datos mediante un diagrama de sectores (también damos opción a devolver un gráfico de barras, pero es más visual el gráfico de sectores). El gráfico, finalmente, se guardará en la carpeta desde la que se esté ejecutando el archivo.
+`python3 conteo_rango_edades.py datos/movements 202012_movements.json 202011_movements.json 202010_movements.json`
+
+Nota a tener en cuenta: al ejecutar este script, hay que pasarle la ruta en la que se encuentran los archivos. Esta ruta debe de ser común a todas las bases de datos. Es decir, todas las bases de datos se deben de encontrar en la misma carpeta. Si el archivo se ejecutra en la carpeta donde se encuentran todas las bases de datos, escribir `actual` para que el archivo pueda detectarlo.
+
+Esta función nos proporcionará el tiempo medio de viaje (siempre que este supere el minuto de duración) de las bases de datos pasadas como input, así como 2 gráficas: una de ellas con todos los usuarios, y la otra solamente con los usuarios que SI han registrado su edad en la aplicación.
 
 <br>
 
