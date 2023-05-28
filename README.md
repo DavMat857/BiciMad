@@ -42,7 +42,7 @@ Se encuentran disponibles los datos desde Junio hasta Diciembre del 2020. Para m
 
 ### Estudio 1: Estadísticas de la edad
 
-Script: conteo_rango_edades.py
+Script - `conteo_rango_edades.py`
 
 Este archivo lee una serie de base de datos en las que se encuentre el dato `ageRange` (si no se encuentra, se pone un None y filtra luego segun los datos encontrados). Estas bases de datos deben de tener un formato similar al JSON:
 
@@ -54,7 +54,7 @@ Así, cuando ya tenemos recogidos todos los datos, contamos la cantidad de veces
 
 ### Estudio 2: Mapa de rutas más usadas en un día
 
-Script: mapa_dia.py
+Script - `mapa_dia.py`
 
 Este programa ejecuta una aplicación de nombre `mapaBicimad` que lee dos archivos en formato JSON que contienen información sobre los movimientos y las situaciones de las estaciones de Bicimad durante un mes. Además, se le debe indicar un día del mes que se quiere estudiar en formato `YYYY-MM-DD` y el archivo HTML en que se guardará la visualización de los datos recopilados. 
 
@@ -74,7 +74,7 @@ Por último, se puede importar la función `main(sc, usage_file, stations_file, 
 
 ### Estudio 3: Rutas más lentas
 
-Script: rutas_lentas.py
+Script - `rutas_lentas.py`
 
 que script es, breve descripción, como se usa
 
