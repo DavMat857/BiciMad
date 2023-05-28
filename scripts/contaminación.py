@@ -113,9 +113,9 @@ def distancia_recorrida(ruta_movements, ruta_stations, spark_session):
     # Agregamos la columna de distancia en metros
     movements_df = add_dist_metros(movements_df, id_map)
 
+    # Obtenemos la distancia total
     total_distancia = movements_df.agg(sum("dist_metros")).collect()[0][0]
 
-    
     return total_distancia
 
 
@@ -135,11 +135,9 @@ if __name__ == '__main__':
         # Valores por defecto
         ruta_movements = r"datos/movements/202012_movements.json"
         ruta_stations = r"datos/stations/202012_stations.json"
-        
     
     else:
         ruta_movements = argv[0]
         ruta_stations = argv[1]
-        
 
-    distancia_recorrida(ruta_movements, ruta_stations,spark_session)
+    distancia_recorrida(ruta_movements, ruta_stations, spark_session)
