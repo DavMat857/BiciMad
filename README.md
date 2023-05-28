@@ -71,7 +71,10 @@ Script - `rutas_lentas.py`
 
 Este script analiza los datos de BiciMad para identificar las rutas más lentas en la red de bicicletas de Madrid. Utiliza los datos de las estaciones y los movimientos de los usuarios para calcular la velocidad media de cada ruta y selecciona las rutas con al menos 50 viajes en un mes determinado.
 
-Para ejecutar el script, es necesario proporcionar las rutas a los archivos JSON de las estaciones y los movimientos de BiciMad. También es necesario proporcionar una ruta para guardar el gráfico de resultados:
+Para ejecutar el script, es necesario proporcionar:
+* Ruta al archivo JSON con datos de las estaciones. En la ruta ``datos\stations\`` se pueden encontrar datos de prueba en el formato ``AAAAMM_stations.json``.
+* Ruta al archivo JSON con datos de los movimientos. En la ruta ``datos\movements\`` se pueden encontrar datos de prueba en el formato ``AAAAMM_movements.json``.
+* Ruta para guardar el gráfico de resultados.
 
 ```
 python rutas_lentas.py <datos_movimientos> <datos_estaciones> <resultado>
