@@ -97,7 +97,7 @@ def add_dist_metros(movements_df, id_map):
     return output_movements_df
 
 # Función principal para obtener las velocidades de las rutas
-def obtener_velocidades(ruta_movements, ruta_stations, spark_session):
+def obtener_velocidades(ruta_movements, ruta_stations, spark_session, min_count=50, top_n=10):
 
     # Leemos los datos de las estaciones y los movimientos
     stations_df = spark_session.read.json(ruta_stations)
@@ -119,14 +119,12 @@ def obtener_velocidades(ruta_movements, ruta_stations, spark_session):
     # Agrupar por "id" y calcular la media y el conteo
     results = movements_df.groupBy("ruta").agg(F.mean('velocidad_m_s').alias('mean'), F.count('velocidad_m_s').alias('count'))
 
-    # Filtramos los resultados donde el conteo es mayor que min_count y media no nula
-    min_count = 50
+    # Filtramos los resultados donde el conteo es mayor que 'min_count' y media distinto de 0
     results = results.filter(F.col("count") > min_count)
     results = results.filter(F.col("mean") > 0.0)
 
-    # Seleccionamos las n rutas las lentas del mes
-    n = 10
-    top_results = {row['ruta']: row['mean'] for row in results.orderBy(F.col("mean").desc()).limit(n).collect()}
+    # Seleccionamos las 'top_n' rutas las lentas del mes
+    top_results = {row['ruta']: row['mean'] for row in results.orderBy(F.col("mean").desc()).limit(top_n).collect()}
 
     return top_results
 
@@ -141,6 +139,6 @@ if __name__ == '__main__':
     ruta_movements = r"datos\movements\202012_movements.json"
     ruta_stations = r"datos\stations\202012_stations.json"
 
-    velocidades = obtener_velocidades(ruta_movements, ruta_stations, spark_session)
+    velocidades = obtener_velocidades(ruta_movements, ruta_stations, spark_session, min_count=50, top_n=10)
 
     print(velocidades)
