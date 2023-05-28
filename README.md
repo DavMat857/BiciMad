@@ -121,7 +121,13 @@ distancia_recorrida(ruta_movements, ruta_stations, spark_session)
 
 ## Resultados
 
-### ALVARO
+### comparacion_rango_edades.png
+
+Este archivo es uno de los obtenidos al ejecutar el archivo `conteo_rango_edades.py`. Aquí se nos muestra una gráfica de sectores la cual nos indica el porcentaje de personas que han usado el sistema BICIMAD en función de su edad. Esta medición se realiza siempre que la duración del viaje sea mayor o igual que 1 minuto.
+
+### comparacion_rango_edades_filtrado.png
+
+Este es el otro archivo obtenido al ejecutar `conteo_rango_edades.py`. Aquí se nos muestra la información de las personas que SI han marcado su edad a la hora de coger la bici. Estos datos, al igual que en el anterior, son recogidos siempre y cuando la duración del viaje sea mayor o igual que 1 minuto.
 
 ### mapa_2020-12-01.html
 
