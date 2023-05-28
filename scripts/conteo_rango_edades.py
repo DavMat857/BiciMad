@@ -31,7 +31,9 @@ def grafica_queso(claves, valores, nombre, ruta):
         lst_leyenda.append(str(clave) + ": " + equivalencia_edad[clave] + " con porcentaje " + str(porcentaje) + "%")
     ax.legend(lst_leyenda, loc="lower right", bbox_to_anchor=(1.13, -0.1))
     fig.savefig(direccion)
-    print ("El gráfico {0} se ha guardado correctamente en la siguiente ruta: {1}".format(nombre, direccion))
+    plt.close(fig)
+    print("El gráfico {0} se ha guardado correctamente en la siguiente ruta: {1}".format(nombre, direccion))
+
 
 def obtener_contenido(fila_json):
     # print(fila_json))
@@ -50,6 +52,8 @@ def obtener_contenido(fila_json):
         return None #si uno de los 2 valores no se encuentra, devolvemos None por defecto
 
 def main2(sc, files):
+    plt.ioff()
+
     rdd_contenido = sc.emptyRDD()
     for file in files:
         file_rdd = sc.textFile(file) #leemos el archivo
