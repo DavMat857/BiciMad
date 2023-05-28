@@ -8,22 +8,17 @@ Trabajo realizado por el grupo de los siguientes integrantes:
 
 <br>
 
-CAMBIAR, NO ESTA ACTUALIZADO ----> Problemas a solucionar y datos a analizar de BiciMad:
-* Mapa de calor
-* Cliente objetivo:
-	Obtendremos información acerca del cliente objetivo, en función de este dato
-	podremos buscar estrategias para llegar a otros públicos.
-* Mejora medioambiental existente gracias al producto.
-	1)Creamos tuplas destino-origen
-	2)Calculamos las distancias
-	3)Creamos función del %gasolina, %diesel, ...
-	calculamos los km que hace BiciMad y añadimos CO2 ahorrado
-* Media km por grupo de edad.
-* Calcular la velocidad media las distintas rutas. Para identificar tramos lentos, indicando posibles problemas y carencias en la infraestructura de la ciudad: Falta de carriles bici, malas condiciones de la via, etc.
+Este documento explica la estructura del repositorio y las instrucciones de uso de las distintas herramientas proporcionadas (estudios). La documentación con la información de los estudios realizados, resultados, conclusiones y propuesta de soluciones se encuentra en el Notebook ``summary.ipynb``.
 
-Para poder probar las distintas funciones, observar algunos resultados de los estudios y ver ejemplos de cómo ejecutar los distintos programas se recomienda seguir el Notebook resumen: ``summary.ipynb``.
+<br>
 
-En el repositorio también se pueden encontrar los datos usados (en la carpeta ``/datos``), los scripts para obtener resultados (en la carpeta ``/scripts``) y los resultados (en la carpeta ``\resultados``). También se encuenta el Notebook ``previos.ipynb``, en que se han realizado pruebas para entender los datos de entrada.  
+Problemas a solucionar y datos a analizar de BiciMad:
+* ALVARO
+* RODRIGO
+* Calcular la velocidad media las distintas rutas. Para identificar tramos lentos, indicando posibles problemas y carencias en la infraestructura de la ciudad: Falta de carriles bici, malas condiciones de la vía, etc.
+* DAVID
+
+En el repositorio también se pueden encontrar los datos usados (en la carpeta ``/datos``), los scripts para obtener resultados (en la carpeta ``/scripts``) y los resultados (en la carpeta ``/resultados``). También se encuenta el Notebook ``previos.ipynb``, en que se han realizado pruebas para entender los datos de entrada. Este último Notebook no es de interés para la presentación de los estudios, simplemente ha servido para un primer contacto con los datos. 
 
 <br>
 
@@ -31,7 +26,7 @@ En el repositorio también se pueden encontrar los datos usados (en la carpeta `
 
 Para realizar los distintos estudios se han utilizado los datos de la página web oficial de [BiciMad](https://opendata.emtmadrid.es/Datos-estaticos/Datos-generales-(1)). Estos datos se pueden encontrar dividos por tipo: 
 
-* Movimiento (``datos\movements``): Información sobre el uso de las bicicletas por parte del usuario final)
+* Movimiento (``datos\movements``): Información sobre el uso de las bicicletas por parte del usuario final
 * Estaciones (``datos\stations``): Información de la situación de las estaciones). 
 
 Se encuentran disponibles los datos desde Junio hasta Diciembre del 2020. Para más información sobre los datos, se puede consultar el archivo `leyenda.pdf`. Este contiene información acerca del formato de los datos y la información que podemos encontrar en ellos.
@@ -88,15 +83,15 @@ que script es, breve descripción, como se usa
 
 ## Resultados
 
+### ALVARO
+
 ### mapa_2020-12-01.html
 
 Este archivo muestra el resultado obtenido al ejecutar el archivo `mapa_dia.py` con la información correspondiente al mes de julio de 2020, más específicamente, sobre el día `2020-12-01` (`YYYY-MM-DD`).
 
-### ESTUDIO 1 (ALVARO)
+### AZIZ
 
-### ESTUDIO 3 (AZIZ)
-
-### ESTUDIO 4 (DAVID)
+### DAVID
 
 <br>
 
