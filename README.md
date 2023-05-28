@@ -35,7 +35,7 @@ Se encuentran disponibles los datos desde Junio hasta Diciembre del 2020. Para m
 
 ## Estudios realizados
 
-### Estudio 1: Estadísticas de la edad
+### **Estudio 1: Estadísticas de la edad**
 
 Script - `conteo_rango_edades.py`
 
@@ -51,7 +51,7 @@ Esta función nos proporcionará el tiempo medio de viaje (siempre que este supe
 
 <br>
 
-### Estudio 2: Mapa de rutas más usadas en un día
+### **Estudio 2: Mapa de rutas más usadas en un día**
 
 Script - `mapa_dia.py`
 
@@ -69,7 +69,7 @@ Se puede importar la función `main(sc, usage_file, stations_file, day, outfile,
 
 <br>
 
-### Estudio 3: Rutas más lentas
+### **Estudio 3: Rutas más lentas**
 
 Script - `rutas_lentas.py`
 
@@ -98,7 +98,7 @@ obtener_velocidades(ruta_movements, ruta_stations, ruta_resultados, spark_sessio
 
 <br>
 
-### Estudio 4: Contaminación
+### **Estudio 4: Contaminación**
 
 Script - `contaminación.py`
 
@@ -112,7 +112,7 @@ Para ejecutar el script, es necesario proporcionar:
 python contaminacion.py <datos_movimientos> <datos_estaciones> 
 ```
 
-También está la posibilidad de importar la función ``distancia_recorrida``y hacer la llamada (junto con una SparkSession) con los parámetros que se indiquen. 
+También está la posibilidad de importar la función ``distancia_recorrida`` y hacer la llamada (junto con una SparkSession) con los parámetros que se indiquen. 
 
 ```
 distancia_recorrida(ruta_movements, ruta_stations, spark_session)
@@ -136,9 +136,6 @@ Este archivo muestra el resultado obtenido al ejecutar el archivo `mapa_dia.py` 
 ### rutas_lentas.png
 
 Gráfica mostrando las rutas más lentas detectadas en el mes de la última ejecución del estudio de Rutas Lentas. En este grafico podemos observar, ordenadas de más lentas a menos, las rutas (indicadas con los nombre de las entaciones) más lentas junto a su velocidad media.
-
-### Cantidad de kilómetros
-Se muestra por pantalla al ejecutar el archivo
 
 <br>
 
