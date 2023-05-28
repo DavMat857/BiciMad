@@ -14,7 +14,7 @@ Este documento explica la estructura del repositorio y las instrucciones de uso 
 
 Problemas a solucionar y datos a analizar de BiciMad:
 * ALVARO
-* RODRIGO
+* Obtener las rutas y estaciones más transitadas de la ciudad para un día concreto partiendo de los datos recopilados del mes específico. Los resultados obtenidos se visualizan con la creación de un mapa interactivo.
 * Calcular la velocidad media las distintas rutas. Para identificar tramos lentos, indicando posibles problemas y carencias en la infraestructura de la ciudad: Falta de carriles bici, malas condiciones de la vía, etc.
 * DAVID
 
