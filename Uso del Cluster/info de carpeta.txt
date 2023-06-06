@@ -1,1 +1,2 @@
-En esta carpeta se encontrarán imagenes en las que aparecerá como se ha usado el cluster para ejecutar los scripts correspondientes
+En esta carpeta se encontrarán imagenes en las que aparecerá como se 
+ha utilizado el cluster para ejecutar los scripts correspondientes.
