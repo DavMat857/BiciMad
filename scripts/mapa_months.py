@@ -127,17 +127,15 @@ if __name__ == '__main__':
         with SparkContext(conf=conf) as sc:
             sc.setLogLevel("ERROR")
             usage_files, stations_files = [], []
-            """
             for i in range(1,len(sys.argv)-1):
                 if sys.argv[i].endswith("movements.json"):
                     usage_files += [sys.argv[i]]
                 elif sys.argv[i].endswith("stations.json"):
                     stations_files += [sys.argv[i]]
             outfile = sys.argv[-1]
-            """
-            usage_files = ["../datos/movements/202011_movements.json", "../datos/movements/202012_movements.json"]
-            stations_files = ["../datos/stations/202011_stations.json", "../datos/stations/202011_stations.json"]
-            outfile = "prueba.html"
+            # usage_files = ["../datos/movements/202011_movements.json", "../datos/movements/202012_movements.json"]
+            # stations_files = ["../datos/stations/202011_stations.json", "../datos/stations/202011_stations.json"]
+            # outfile = "prueba.html"
             print(usage_files, stations_files, outfile)
             main(sc, usage_files, stations_files, outfile)
     else:
