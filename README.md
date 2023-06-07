@@ -68,9 +68,7 @@ python3 mapa_dia.py 202012_movements.json 202012_stations.json 2020-12-01 mapa_2
 
 El programa guarda las posiciones y los identificadores de las estaciones activas, y hace lo propio con las variables `idplug_station` (estación de enganche) e `idunplug_station` (estación de desenganche) del fichero que guarda los movimientos de usuarios. Con esta información se evalúa cuáles han sido las estaciones más concurridas a lo largo del día introducido, y utilizando la librería de visualización geoespacial `folium` presentamos esta información en un mapa de forma que se pueda acceder a la información de enganches y desenganches de todas las estaciones, así como proporcionar una representación que permita conocer las estaciones y rutas de mayor interés. 
 
-Se puede importar la función `main(sc, usage_file, stations_file, day, outfile, top)` para usarse directamente desde otro programa. De forma predeterminada, se han seleccionado los documentos de diciembre de 2020 y el primer día de dicho mes, para que pueda servir como ejemplo.
-
-Además, para generalizar la creación del mapa con los datos de todos los meses hemos credo el programa alternativo `mapa_months.py`.
+Se puede importar la función `main(sc, usage_file, stations_file, day, outfile, top)` para usarse directamente desde otro programa. De forma predeterminada, se han seleccionado los documentos de diciembre de 2020 y el primer día de dicho mes, para que pueda servir como ejemplo. Además, para generalizar la creación del mapa con los datos de todos los meses hemos credo el programa alternativo `mapa_months.py`.
 
 <br>
 
