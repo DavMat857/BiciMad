@@ -18,7 +18,7 @@ Problemas a solucionar y datos a analizar de BiciMad:
 * Calcular la velocidad media las distintas rutas. Para identificar tramos lentos, indicando posibles problemas y carencias en la infraestructura de la ciudad: Falta de carriles bici, malas condiciones de la vía, etc.
 * Realizar un cálculo de la cantidad de CO2 que no se ha generado gracias a BiciMad. Para ello calculamos la cantidad de kilómetros realizados por los usuarios
 
-En el repositorio también se pueden encontrar los datos usados (en la carpeta ``/datos``), los scripts para obtener resultados (en la carpeta ``/scripts``) y los resultados (en la carpeta ``/resultados``). También se encuenta el Notebook ``previos.ipynb``, en que se han realizado pruebas para entender los datos de entrada. Este último Notebook no es de interés para la presentación de los estudios, simplemente ha servido como primer contacto con los datos. 
+En el repositorio también se pueden encontrar los datos usados (en la carpeta ``/datos``), los scripts para obtener resultados (en la carpeta ``/scripts``) y los resultados (en la carpeta ``/resultados``). También se encuenta el Notebook ``previos.ipynb``, en que se han realizado pruebas para entender los datos de entrada. Este último Notebook no es de interés para la presentación de los estudios, pero ha servido como primer contacto con los datos. 
 
 <br>
 
