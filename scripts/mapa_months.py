@@ -70,7 +70,7 @@ def main(sc, usage_files, stations_files, outfile, top=500):
 
     # Filtramos la situación de las estaciones para el día dado
     filtered_rdd = stations_rdd.flatMap(lambda x: json.loads(x)['stations'])
-    filtered_rdd = filtered_rdd.filter(lambda x: x['activate'] == 1)
+    filtered_rdd = filtered_rdd.filter(lambda x: x['activate'] == 1 and x['longitude'] != '---' and x['latitude'] != '---')
 
     # Extraemos la información de las estaciones en un diccionario
     result2 = filtered_rdd.map(lambda x: {x['id']: {'name': x['name'], 'longitude': x['longitude'], 
